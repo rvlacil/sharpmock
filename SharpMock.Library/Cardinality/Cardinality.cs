@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SharpMock.Library.Setup.Cardinality
+﻿namespace SharpMock.Library.Cardinality
 {
     public static class C
     {

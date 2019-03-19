@@ -1,9 +1,4 @@
-﻿using SharpMock.Library.Setup.Matchers;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SharpMock.Library.Setup
+﻿namespace SharpMock.Library
 {
     public interface IActionSetup : IArgSetupBase<IActionSetup>
     {

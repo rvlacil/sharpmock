@@ -1,10 +1,8 @@
-﻿using SharpMock.Library.Setup.Matchers;
-using SharpMock.Library.Setup.Cardinality;
-using SharpMock.Library.Setup.Action;
+﻿using SharpMock.Library.Matchers;
+using SharpMock.Library.Action;
 using System;
-using System.Threading.Tasks;
 
-namespace SharpMock.Library.Setup
+namespace SharpMock.Library
 {
     public class ActionSetup : SetupBase<IActionSetup>, IActionSetup
     {

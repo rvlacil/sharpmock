@@ -4,4 +4,36 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SharpMock.Utils\SharpMock.Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="MockHolder.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MockHolder.cs</LastGenOutput>
+    </None>
+    <None Update="IActionSetup.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IActionSetup.txt</LastGenOutput>
+    </None>
+    <None Update="IActionSetup.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IActionSetup.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="MockHolder.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MockHolder.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

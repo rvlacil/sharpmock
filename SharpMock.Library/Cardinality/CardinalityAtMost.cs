@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
-namespace SharpMock.Library.Setup.Cardinality
+namespace SharpMock.Library.Cardinality
 {
     public class CardinalityAtMost : ICardinality
     {
@@ -25,11 +23,7 @@ namespace SharpMock.Library.Setup.Cardinality
             var ret = _actual <= _requested;
             if (!ret)
             {
-                output.Append("requested AtMost: ");
-                output.Append(_requested);
-                output.Append(" actual: ");
-                output.Append(_actual);
-                output.AppendLine();
+                output.Append("requested AtMost: ").Append(_requested).Append(" actual: ").Append(_actual).AppendLine();
             }
             return ret;
         }

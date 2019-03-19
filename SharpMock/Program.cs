@@ -1,6 +1,6 @@
 ﻿using SharpMock.Library;
-using SharpMock.Library.Setup.Cardinality;
-using SharpMock.Library.Setup.Matchers;
+using SharpMock.Library.Cardinality;
+using SharpMock.Library.Matchers;
 using System;
 
 namespace SharpMock
@@ -14,7 +14,8 @@ namespace SharpMock
             {
                 var mock = new MockTest();
                 var i = mock.I;
-                mock.Do().SetupM<string, int, string>(i.Call, M._, 4).Times(C.Once()).Return("test");
+                mock.Do().Setup(i.Call, M.Any(""), M.Eq(4)).Times(C.Once()).Action((x, y) => Console.WriteLine("Args: " + x + " " + y)).Return("test");
+                mock.Do().Setup(i.OneArgA, M.Eq(4)).Times(C.Once()).Action((x) => Console.WriteLine("Args: " + x));
 
                 mock.Verify();
             }

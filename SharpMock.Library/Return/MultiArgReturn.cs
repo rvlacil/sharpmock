@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SharpMock.Library.Setup.Return
+namespace SharpMock.Library.Return
 {
     public class MultiArgReturn<Ret> : IReturn<Ret>
     {
@@ -11,11 +9,6 @@ namespace SharpMock.Library.Setup.Return
         public MultiArgReturn(Func<Ret> func)
         {
             _func = func;
-        }
-
-        public Ret Respond(params object[] args)
-        {
-            return Respond();
         }
 
         public Ret Respond()
@@ -33,11 +26,6 @@ namespace SharpMock.Library.Setup.Return
             _func = func;
         }
 
-        public Ret Respond(params object[] args)
-        {
-            return Respond((T) args[0]);
-        }
-
         public Ret Respond(T arg)
         {
             return _func(arg);
@@ -51,11 +39,6 @@ namespace SharpMock.Library.Setup.Return
         public MultiArgReturn(Func<T1, T2, Ret> func)
         {
             _func = func;
-        }
-
-        public Ret Respond(params object[] args)
-        {
-            return Respond((T1) args[0], (T2) args[1]);
         }
 
         public Ret Respond(T1 arg1, T2 arg2)

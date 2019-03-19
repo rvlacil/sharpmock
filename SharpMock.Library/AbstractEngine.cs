@@ -1,6 +1,5 @@
-﻿using SharpMock.Library.Setup;
-using SharpMock.Library.Setup.Action;
-using SharpMock.Library.Setup.Matchers;
+﻿using SharpMock.Library.Action;
+using SharpMock.Library.Matchers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -77,12 +76,6 @@ namespace SharpMock.Library
                 satisfied = satisfied && ret;
             }
             if (!satisfied) throw new ArgumentException(output.ToString());
-        }
-
-        public void Verify(StringBuilder output)
-        {
-
-
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿using SharpMock.Library.Setup.Action;
-using SharpMock.Library.Setup.Cardinality;
-using SharpMock.Library.Setup.Matchers;
+﻿using SharpMock.Library.Action;
+using SharpMock.Library.Cardinality;
+using SharpMock.Library.Matchers;
 using System;
 using System.Text;
 
-namespace SharpMock.Library.Setup
+namespace SharpMock.Library
 {
     public abstract class SetupBase<Self> : ISetupBase<Self> where Self : ISetupBase<Self>
     {

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace SharpMock.Library.Setup.Matchers
+namespace SharpMock.Library.Matchers
 {
     public abstract class MultiArgMatcherBase : IMatcher
     {

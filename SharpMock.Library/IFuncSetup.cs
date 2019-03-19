@@ -1,9 +1,7 @@
-﻿using SharpMock.Library.Setup.Return;
+﻿using SharpMock.Library.Return;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SharpMock.Library.Setup
+namespace SharpMock.Library
 {
     public interface IFuncSetupBase<Ret> : ISetupBase
     {

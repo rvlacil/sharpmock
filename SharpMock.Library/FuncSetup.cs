@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SharpMock.Library.Setup.Action;
-using SharpMock.Library.Setup.Matchers;
-using SharpMock.Library.Setup.Return;
+using SharpMock.Library.Action;
+using SharpMock.Library.Matchers;
+using SharpMock.Library.Return;
 
-namespace SharpMock.Library.Setup
+namespace SharpMock.Library
 {
     public abstract class FuncSetupBase<Self, Ret> : SetupBase<Self> where Self : ISetupBase<Self>
     {

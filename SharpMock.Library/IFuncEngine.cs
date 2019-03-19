@@ -1,9 +1,4 @@
-﻿using SharpMock.Library.Setup;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SharpMock.Library
+﻿namespace SharpMock.Library
 {
     public interface IFuncEngine<Ret> : IEngine
     {

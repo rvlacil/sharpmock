@@ -1,9 +1,7 @@
-﻿using SharpMock.Library.Setup;
-using SharpMock.Library.Setup.Action;
-using SharpMock.Library.Setup.Matchers;
-using SharpMock.Library.Setup.Return;
+﻿using SharpMock.Library.Action;
+using SharpMock.Library.Matchers;
+using SharpMock.Library.Return;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace SharpMock.Library

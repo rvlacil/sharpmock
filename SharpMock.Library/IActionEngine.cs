@@ -1,12 +1,4 @@
-﻿using SharpMock.Library.Setup;
-using SharpMock.Library.Setup.Matchers;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SharpMock.Library
+﻿namespace SharpMock.Library
 {
     public interface IActionEngine : IEngine
     {

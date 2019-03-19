@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SharpMock.Library.Setup.Matchers
+namespace SharpMock.Library.Matchers
 {
     public class MatcherComposite<T> : TypedMatcher<T>
     {

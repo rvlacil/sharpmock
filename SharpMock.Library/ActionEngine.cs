@@ -1,6 +1,5 @@
-﻿using SharpMock.Library.Setup;
-using SharpMock.Library.Setup.Action;
-using SharpMock.Library.Setup.Matchers;
+﻿using SharpMock.Library.Action;
+using SharpMock.Library.Matchers;
 using System;
 using System.Text;
 

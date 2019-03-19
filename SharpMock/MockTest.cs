@@ -1,5 +1,5 @@
 ﻿using SharpMock.Library;
-using SharpMock.Library.Setup.Matchers;
+using SharpMock.Library.Matchers;
 using System;
 using System.Collections.Generic;
 using System.Reflection;

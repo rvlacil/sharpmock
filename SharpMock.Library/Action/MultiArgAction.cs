@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SharpMock.Library.Setup.Action
+namespace SharpMock.Library.Action
 {
     public class MultiArgAction : IAction
     {

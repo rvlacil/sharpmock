@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
-namespace SharpMock.Library.Setup.Matchers
+namespace SharpMock.Library.Matchers
 {
     public interface ITypedMatcher<T>
     {

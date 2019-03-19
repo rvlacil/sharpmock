@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SharpMock.Library.Setup.Return
+﻿namespace SharpMock.Library.Return
 {
     public interface IReturn<Ret>
     {
-        Ret Respond(params object[] args);
     }
 }
