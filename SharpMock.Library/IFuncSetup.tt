@@ -6,38 +6,40 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="SharpMock.Utils" #>
 <#@ output extension=".cs" #>
+using System;
 
 namespace SharpMock.Library
 {
 <#
-
 PushIndent("".PadLeft(4));
 for (int i = 0; i <= Generators.ArgCount; ++i)
 {
-	Generate(i);
+	GenerateInterface(i);
 }
 PopIndent();
-
 #>
 }
-<#+
 
-private void Generate(int argCount)
+
+<#+
+private void GenerateInterface(int argCount)
 {
 	var types = GenerateNumberedList("T{0}", argCount);
-    var typeList = (types == "") ? "" : $"<{types}>";
+    var commaTypes = (types == "") ? "" : ", " + types;
+    var typesComma = (types == "") ? "" : types + ", ";
 
 #>
-public interface IActionSetup<#= typeList #> : IArgSetup<IActionSetup<#= typeList #><#= (types == "" ? "" : ", " + types) #>>
+public interface IFuncSetup<<#= typesComma #>Ret> : IArgSetup<IFuncSetup<<#= typesComma #>Ret><#= commaTypes #>>, IFuncSetupBase<Ret>
 {
+	IFuncSetup<<#= typesComma #>Ret> Return(Ret func);
+	IFuncSetup<<#= typesComma #>Ret> Return(Func<<#= typesComma #>Ret> func);
 }
 
 <#+
 }
 
-private string GenerateNumberedList(string format, int count)
+public static string GenerateNumberedList(string format, int count)
 {
 	return string.Join(", ", Enumerable.Range(1, count).Select(i => string.Format(format, i)));
 }
-
 #>

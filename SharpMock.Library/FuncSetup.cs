@@ -5,7 +5,7 @@ using SharpMock.Library.Return;
 
 namespace SharpMock.Library
 {
-    public abstract class FuncSetupBase<Self, Ret> : SetupBase<Self> where Self : ISetupBase<Self>
+    public abstract class FuncSetupBase<Self, Ret> : SetupBase<Self> where Self : ISetup<Self>
     {
         protected IReturn<Ret> _return;
 

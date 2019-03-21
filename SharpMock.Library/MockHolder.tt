@@ -1,4 +1,4 @@
-﻿<#@ template debug="true" hostspecific="false" language="C#" #>
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="$(SolutionDir)\SharpMock.Utils\bin\$(ConfigurationName)\$(TargetFramework)\SharpMock.Utils.dll" #>
 <#@ import namespace="System.Linq" #>
@@ -34,7 +34,7 @@ namespace SharpMock.Library
 <#
 
 PushIndent("".PadLeft(4 * 2));
-for (int i = 1; i <= ArgLimit.N; ++i)
+for (int i = 1; i <= Generators.ArgCount; ++i)
 {
 	GenerateSetup(i);
 }
@@ -65,7 +65,7 @@ public IFuncSetup<<#= genericArgs #>, Ret> Setup<<#= genericArgs #>, Ret>(Func<<
 <#+
 }
 
-private string GenerateNumberedList(string format, int count)
+public static string GenerateNumberedList(string format, int count)
 {
 	return string.Join(", ", Enumerable.Range(1, count).Select(i => string.Format(format, i)));
 }

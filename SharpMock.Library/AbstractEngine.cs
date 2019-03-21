@@ -9,17 +9,17 @@ namespace SharpMock.Library
     public abstract class AbstractEngine
     {
         protected readonly string _methodName;
-        protected List<ISetupBase> _activeSetups;
-        protected List<ISetupBase> _depletedSetups;
+        protected List<ISetup> _activeSetups;
+        protected List<ISetup> _depletedSetups;
 
         public AbstractEngine(string methodName)
         {
             _methodName = methodName;
-            _activeSetups = new List<ISetupBase>();
-            _depletedSetups = new List<ISetupBase>();
+            _activeSetups = new List<ISetup>();
+            _depletedSetups = new List<ISetup>();
         }
 
-        protected void Act(ISetupBase setup, Action<IAction> action)
+        protected void Act(ISetup setup, Action<IAction> action)
         {
             setup.Act(action);
         }

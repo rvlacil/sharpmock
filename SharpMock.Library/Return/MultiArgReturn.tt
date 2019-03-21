@@ -1,0 +1,56 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(SolutionDir)\SharpMock.Utils\bin\$(ConfigurationName)\$(TargetFramework)\SharpMock.Utils.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="SharpMock.Utils" #>
+<#@ output extension=".cs" #>
+using System;
+
+namespace SharpMock.Library.Return
+{
+<#
+PushIndent("".PadLeft(4));
+for (int i = 0; i <= Generators.ArgCount; ++i)
+{
+    GenerateReturn(i);
+}
+PopIndent();
+
+#>
+}
+<#+
+
+private void GenerateReturn(int i)
+{
+    var types = GenerateNumberedList("T{0}", i);
+    var typesComma = (types == "") ? "" : types + ", ";
+    var typeArgs = GenerateNumberedList("T{0} arg{0}", i);
+    var args = GenerateNumberedList("arg{0}", i);
+
+#>
+public class MultiArgReturn<<#=typesComma #>Ret> : IReturn<Ret>
+{
+    private readonly Func<<#= typesComma #>Ret> _action;
+
+    public MultiArgReturn(System.Func<<#= typesComma #>Ret> action)
+    {
+        _action = action;
+    }
+
+    public Ret Respond(<#= typeArgs #>)
+    {
+        return _action(<#= args #>);
+    }
+}
+
+<#+
+}
+
+public static string GenerateNumberedList(string format, int count)
+{
+	return string.Join(", ", Enumerable.Range(1, count).Select(i => string.Format(format, i)));
+}
+
+#>

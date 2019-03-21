@@ -5,22 +5,72 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="ActionEngine.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ActionEngine.tt</DependentUpon>
+    </None>
+    <None Include="IActionEngine.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IActionEngine.tt</DependentUpon>
+    </None>
+    <None Include="IArgSetup.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IArgSetup.tt</DependentUpon>
+    </None>
+    <None Include="IFuncEngine.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IFuncEngine.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SharpMock.Utils\SharpMock.Utils.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="ActionEngine.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ActionEngine.cs</LastGenOutput>
+    </None>
+    <None Update="Action\MultiArgAction.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MultiArgAction.cs</LastGenOutput>
+    </None>
+    <None Update="IActionEngine.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IActionEngine.cs</LastGenOutput>
+    </None>
+    <None Update="IArgSetup.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IArgSetup.cs</LastGenOutput>
+    </None>
+    <None Update="IFuncEngine.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IFuncEngine.cs</LastGenOutput>
+    </None>
+    <None Update="IFuncSetup.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IFuncSetup.cs</LastGenOutput>
+    </None>
+    <None Update="Matchers\MultiArgMatcher.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MultiArgMatcher.cs</LastGenOutput>
+    </None>
     <None Update="MockHolder.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MockHolder.cs</LastGenOutput>
     </None>
     <None Update="IActionSetup.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IActionSetup.txt</LastGenOutput>
+      <LastGenOutput>IActionSetup.cs</LastGenOutput>
     </None>
-    <None Update="IActionSetup.txt">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>IActionSetup.tt</DependentUpon>
+    <None Update="Return\MultiArgReturn.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MultiArgReturn.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -29,10 +79,55 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="ActionEngine.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ActionEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Action\MultiArgAction.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MultiArgAction.tt</DependentUpon>
+    </Compile>
+    <Compile Update="IActionEngine.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IActionEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Update="IActionSetup.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IActionSetup.tt</DependentUpon>
+    </Compile>
+    <Compile Update="IArgSetup.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IArgSetup.tt</DependentUpon>
+    </Compile>
+    <Compile Update="IFuncEngine.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IFuncEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Update="IFuncSetup.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IFuncSetup.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Matchers\MultiArgMatcher.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MultiArgMatcher.tt</DependentUpon>
+    </Compile>
     <Compile Update="MockHolder.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>MockHolder.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Return\MultiArgReturn.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MultiArgReturn.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

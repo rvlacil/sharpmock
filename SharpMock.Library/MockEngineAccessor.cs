@@ -1,8 +1,4 @@
-﻿using SharpMock.Library;
-using SharpMock.Library.Matchers;
-using System;
-
-namespace SharpMock.Library
+﻿namespace SharpMock.Library
 {
     public static class MockEngineAccessor
     {

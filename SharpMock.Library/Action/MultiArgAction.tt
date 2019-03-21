@@ -6,15 +6,16 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="SharpMock.Utils" #>
 <#@ output extension=".cs" #>
+using System;
 
-namespace SharpMock.Library
+namespace SharpMock.Library.Action
 {
 <#
 
 PushIndent("".PadLeft(4));
 for (int i = 0; i <= Generators.ArgCount; ++i)
 {
-	Generate(i);
+    GenerateAction(i);
 }
 PopIndent();
 
@@ -22,20 +23,33 @@ PopIndent();
 }
 <#+
 
-private void Generate(int argCount)
+private void GenerateAction(int i)
 {
-	var types = GenerateNumberedList("T{0}", argCount);
+    var types = GenerateNumberedList("T{0}", i);
     var typeList = (types == "") ? "" : $"<{types}>";
+    var typeArgs = GenerateNumberedList("T{0} arg{0}", i);
+    var args = GenerateNumberedList("arg{0}", i);
 
 #>
-public interface IActionSetup<#= typeList #> : IArgSetup<IActionSetup<#= typeList #><#= (types == "" ? "" : ", " + types) #>>
+public class MultiArgAction<#=typeList #> : IAction
 {
+    private readonly System.Action<#= typeList #> _action;
+
+    public MultiArgAction(System.Action<#= typeList #> action)
+    {
+        _action = action;
+    }
+
+    public void Execute(<#= typeArgs #>)
+    {
+        _action(<#= args #>);
+    }
 }
 
 <#+
 }
 
-private string GenerateNumberedList(string format, int count)
+public static string GenerateNumberedList(string format, int count)
 {
 	return string.Join(", ", Enumerable.Range(1, count).Select(i => string.Format(format, i)));
 }

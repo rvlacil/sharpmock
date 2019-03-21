@@ -4,46 +4,47 @@ namespace SharpMock.Library.Return
 {
     public class MultiArgReturn<Ret> : IReturn<Ret>
     {
-        private readonly Func<Ret> _func;
-
-        public MultiArgReturn(Func<Ret> func)
+        private readonly Func<Ret> _action;
+    
+        public MultiArgReturn(System.Func<Ret> action)
         {
-            _func = func;
+            _action = action;
         }
-
+    
         public Ret Respond()
         {
-            return _func();
+            return _action();
         }
     }
-
-    public class MultiArgReturn<T, Ret> : IReturn<Ret>
+    
+    public class MultiArgReturn<T1, Ret> : IReturn<Ret>
     {
-        private readonly Func<T, Ret> _func;
-
-        public MultiArgReturn(Func<T, Ret> func)
+        private readonly Func<T1, Ret> _action;
+    
+        public MultiArgReturn(System.Func<T1, Ret> action)
         {
-            _func = func;
+            _action = action;
         }
-
-        public Ret Respond(T arg)
+    
+        public Ret Respond(T1 arg1)
         {
-            return _func(arg);
+            return _action(arg1);
         }
     }
-
+    
     public class MultiArgReturn<T1, T2, Ret> : IReturn<Ret>
     {
-        private readonly Func<T1, T2, Ret> _func;
-
-        public MultiArgReturn(Func<T1, T2, Ret> func)
+        private readonly Func<T1, T2, Ret> _action;
+    
+        public MultiArgReturn(System.Func<T1, T2, Ret> action)
         {
-            _func = func;
+            _action = action;
         }
-
+    
         public Ret Respond(T1 arg1, T2 arg2)
         {
-            return _func(arg1, arg2);
+            return _action(arg1, arg2);
         }
     }
+    
 }

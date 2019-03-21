@@ -1,28 +1,25 @@
-﻿using SharpMock.Library.Return;
-using System;
+﻿using System;
 
 namespace SharpMock.Library
 {
-    public interface IFuncSetupBase<Ret> : ISetupBase
+    public interface IFuncSetup<Ret> : IArgSetup<IFuncSetup<Ret>>, IFuncSetupBase<Ret>
     {
-        Ret Respond(Func<IReturn<Ret>, Ret> applier);
+    	IFuncSetup<Ret> Return(Ret func);
+    	IFuncSetup<Ret> Return(Func<Ret> func);
     }
-
-    public interface IFuncSetup<Ret> : IArgSetupBase<IFuncSetup<Ret>>, IFuncSetupBase<Ret>
+    
+    public interface IFuncSetup<T1, Ret> : IArgSetup<IFuncSetup<T1, Ret>, T1>, IFuncSetupBase<Ret>
     {
-        IFuncSetup<Ret> Return(Ret func);
-        IFuncSetup<Ret> Return(Func<Ret> func);
+    	IFuncSetup<T1, Ret> Return(Ret func);
+    	IFuncSetup<T1, Ret> Return(Func<T1, Ret> func);
     }
-
-    public interface IFuncSetup<T, Ret> : IArgSetupBase<IFuncSetup<T, Ret>, T>, IFuncSetupBase<Ret>
+    
+    public interface IFuncSetup<T1, T2, Ret> : IArgSetup<IFuncSetup<T1, T2, Ret>, T1, T2>, IFuncSetupBase<Ret>
     {
-        IFuncSetup<T, Ret> Return(Ret func);
-        IFuncSetup<T, Ret> Return(Func<T, Ret> func);
+    	IFuncSetup<T1, T2, Ret> Return(Ret func);
+    	IFuncSetup<T1, T2, Ret> Return(Func<T1, T2, Ret> func);
     }
-
-    public interface IFuncSetup<T1, T2, Ret> : IArgSetupBase<IFuncSetup<T1, T2, Ret>, T1, T2>, IFuncSetupBase<Ret>
-    {
-        IFuncSetup<T1, T2, Ret> Return(Ret func);
-        IFuncSetup<T1, T2, Ret> Return(Func<T1, T2, Ret> func);
-    }
+    
 }
+
+

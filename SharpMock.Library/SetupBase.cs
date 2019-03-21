@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SharpMock.Library
 {
-    public abstract class SetupBase<Self> : ISetupBase<Self> where Self : ISetupBase<Self>
+    public abstract class SetupBase<Self> : ISetup<Self> where Self : ISetup<Self>
     {
         protected ICardinality _cardinality;
         protected IAction _action;
@@ -39,7 +39,7 @@ namespace SharpMock.Library
         public Self Times(ICardinality cardinality)
         {
             _cardinality = cardinality;
-            return (Self) (ISetupBase<Self>) this;
+            return (Self) (ISetup<Self>) this;
         }
     }
 }

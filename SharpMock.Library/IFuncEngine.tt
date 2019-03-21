@@ -14,7 +14,7 @@ namespace SharpMock.Library
 PushIndent("".PadLeft(4));
 for (int i = 0; i <= Generators.ArgCount; ++i)
 {
-	Generate(i);
+	GenerateInterface(i);
 }
 PopIndent();
 
@@ -22,22 +22,26 @@ PopIndent();
 }
 <#+
 
-private void Generate(int argCount)
+private void GenerateInterface(int argCount)
 {
-	var types = GenerateNumberedList("T{0}", argCount);
-    var typeList = (types == "") ? "" : $"<{types}>";
+    var types = GenerateNumberedList("T{0}", argCount);
+    var typesComma = (types == "") ? "" : types + ", ";
+    var args = GenerateNumberedList("T{0} arg{0}", argCount);
 
 #>
-public interface IActionSetup<#= typeList #> : IArgSetup<IActionSetup<#= typeList #><#= (types == "" ? "" : ", " + types) #>>
+public interface IFuncEngine<<#= typesComma #>Ret> : IEngine
 {
+    Ret Execute(<#= args #>);
+    IFuncSetup<<#= typesComma #>Ret> Setup();
 }
 
 <#+
 }
 
-private string GenerateNumberedList(string format, int count)
+public static string GenerateNumberedList(string format, int count)
 {
 	return string.Join(", ", Enumerable.Range(1, count).Select(i => string.Format(format, i)));
 }
 
 #>
+

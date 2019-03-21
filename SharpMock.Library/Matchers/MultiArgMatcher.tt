@@ -1,0 +1,69 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(SolutionDir)\SharpMock.Utils\bin\$(ConfigurationName)\$(TargetFramework)\SharpMock.Utils.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="SharpMock.Utils" #>
+<#@ output extension=".cs" #>
+using System.Text;
+
+namespace SharpMock.Library.Matchers
+{
+<#
+PushIndent("".PadLeft(4));
+for (int i = 0; i <= Generators.ArgCount; ++i)
+{
+    GenerateMatcher(i);
+}
+PopIndent();
+
+#>
+}
+
+
+<#+
+private void GenerateMatcher(int count)
+{
+    var types = GenerateNumberedList("T{0}", count);
+    types = (types == "") ? "" : $"<{types}>";
+
+    var matcherArgs = GenerateNumberedList("ITypedMatcher<T{0}> matcher{0}", count);
+    var typeArgs = GenerateNumberedList("T{0} arg{0}", count);
+    var typeArgsComma = (typeArgs == "") ? "" : typeArgs + ", ";
+
+    var matchers = GenerateNumberedList("private readonly ITypedMatcher<T{0}> _matcher{0}", count, "; "); 
+    matchers = (matchers == "") ? "" : matchers + ";";
+
+    var matcherAssignment = GenerateNumberedList("_matcher{0} = matcher{0}", count, "; "); 
+    matcherAssignment = (matcherAssignment == "") ? "" : matcherAssignment + ";";
+
+    var doMatch = GenerateNumberedList("DoMatch(_matcher{0}, arg{0}, \"{0}\", output)", count, " && "); 
+    doMatch = (doMatch == "") ? "" : "&& " + doMatch;
+#>
+
+public class MultiArgMatcher<#= types #> : MultiArgMatcherBase
+{
+    <#= matchers #>
+
+    public MultiArgMatcher(<#= matcherArgs #>)
+        : base("")
+    {
+        <#= matcherAssignment #>
+    }
+
+    public bool Match(<#= typeArgsComma #>StringBuilder output)
+    {
+        return true <#= doMatch #>;
+    }
+}
+
+<#+
+}
+
+public static string GenerateNumberedList(string format, int count, string separator = ", ")
+{
+	return string.Join(separator, Enumerable.Range(1, count).Select(i => string.Format(format, i)));
+}
+
+#>
