@@ -15,11 +15,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>IActionEngine.tt</DependentUpon>
     </None>
-    <None Include="IArgSetup.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>IArgSetup.tt</DependentUpon>
-    </None>
     <None Include="IFuncEngine.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -44,9 +39,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IActionEngine.cs</LastGenOutput>
     </None>
-    <None Update="IArgSetup.tt">
+    <None Update="ISetupMatch.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IArgSetup.cs</LastGenOutput>
+      <LastGenOutput>ISetupMatch.cs</LastGenOutput>
     </None>
     <None Update="IFuncEngine.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -68,7 +63,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IActionSetup.cs</LastGenOutput>
     </None>
-    <None Update="Return\MultiArgReturn.tt">
+    <None Update="Action\MultiArgReturn.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MultiArgReturn.cs</LastGenOutput>
     </None>
@@ -99,10 +94,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>IActionSetup.tt</DependentUpon>
     </Compile>
-    <Compile Update="IArgSetup.cs">
+    <Compile Update="ISetupMatch.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>IArgSetup.tt</DependentUpon>
+      <DependentUpon>ISetupMatch.tt</DependentUpon>
     </Compile>
     <Compile Update="IFuncEngine.cs">
       <DesignTime>True</DesignTime>
@@ -124,7 +119,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>MockHolder.tt</DependentUpon>
     </Compile>
-    <Compile Update="Return\MultiArgReturn.cs">
+    <Compile Update="Action\MultiArgReturn.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>MultiArgReturn.tt</DependentUpon>

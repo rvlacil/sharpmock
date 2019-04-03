@@ -25,21 +25,22 @@ PopIndent();
 <#+
 private void GenerateMatcher(int count)
 {
-    var types = GenerateNumberedList("T{0}", count);
-    types = (types == "") ? "" : $"<{types}>";
-
+    var types = "";
     var matcherArgs = GenerateNumberedList("ITypedMatcher<T{0}> matcher{0}", count);
-    var typeArgs = GenerateNumberedList("T{0} arg{0}", count);
-    var typeArgsComma = (typeArgs == "") ? "" : typeArgs + ", ";
-
-    var matchers = GenerateNumberedList("private readonly ITypedMatcher<T{0}> _matcher{0}", count, "; "); 
-    matchers = (matchers == "") ? "" : matchers + ";";
-
-    var matcherAssignment = GenerateNumberedList("_matcher{0} = matcher{0}", count, "; "); 
-    matcherAssignment = (matcherAssignment == "") ? "" : matcherAssignment + ";";
-
-    var doMatch = GenerateNumberedList("DoMatch(_matcher{0}, arg{0}, \"{0}\", output)", count, " && "); 
-    doMatch = (doMatch == "") ? "" : "&& " + doMatch;
+    var typeArgsComma = "";
+    var matchers = "";
+    var matcherAssignment = "";
+    var doMatch = "true";
+    var toPrint = "\"\"";
+    if (count > 0)
+    {
+        types = "<" + GenerateNumberedList("T{0}", count) + ">";
+        typeArgsComma = GenerateNumberedList("T{0} arg{0}", count) + ", ";
+        matchers = GenerateNumberedList("private readonly ITypedMatcher<T{0}> _matcher{0}", count, "; ") + ";"; 
+        matcherAssignment = GenerateNumberedList("_matcher{0} = matcher{0}", count, "; ") + ";"; 
+        doMatch = GenerateNumberedList("DoMatch(_matcher{0}, arg{0}, \"{0}\", output)", count, " && "); 
+        toPrint = GenerateNumberedList("matcher{0}.ToPrint()", count, " + \", \" + ");
+    }
 #>
 
 public class MultiArgMatcher<#= types #> : MultiArgMatcherBase
@@ -47,14 +48,14 @@ public class MultiArgMatcher<#= types #> : MultiArgMatcherBase
     <#= matchers #>
 
     public MultiArgMatcher(<#= matcherArgs #>)
-        : base("")
+        : base(<#= toPrint #>)
     {
         <#= matcherAssignment #>
     }
 
     public bool Match(<#= typeArgsComma #>StringBuilder output)
     {
-        return true <#= doMatch #>;
+        return <#= doMatch #>;
     }
 }
 

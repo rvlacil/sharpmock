@@ -70,10 +70,14 @@ namespace SharpMock
 
         public void Verify()
         {
+            var output = new StringBuilder("Not satisfied cardinality of setups:").AppendLine();
+            var ret = true;
             foreach (var engine in Engines.Values)
             {
-                engine.Verify();
+                ret = engine.Verify(output) && ret;
             }
+
+            if (ret == false) throw new ArgumentException(output.ToString());
         }
     }
 

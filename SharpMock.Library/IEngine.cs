@@ -1,7 +1,9 @@
-﻿namespace SharpMock.Library
+﻿using System.Text;
+
+namespace SharpMock.Library
 {
     public interface IEngine
     {
-        void Verify();
+        bool Verify(StringBuilder output);
     }
 }

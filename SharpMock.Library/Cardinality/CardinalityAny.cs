@@ -4,7 +4,7 @@ namespace SharpMock.Library.Cardinality
 {
     public class CardinalityAny : ICardinality
     {
-        public bool IsDepleted()
+        public bool IsSaturated()
         {
             return false;
         }
@@ -14,8 +14,9 @@ namespace SharpMock.Library.Cardinality
             return true;
         }
 
-        public void Mark()
+        public bool Mark(StringBuilder output)
         {
+            return true;
         }
     }
 }

@@ -28,8 +28,7 @@ PopIndent();
 
 private void GenerateActionEngine(int count)
 {
-	var types = GenerateNumberedList("T{0}", count);
-    var typeList = (types == "") ? "" : $"<{types}>";
+    var typeList = (count == 0)? "" : "<" + GenerateNumberedList("T{0}", count) + ">";
     var argTypes = GenerateNumberedList("T{0} arg{0}", count);
     var args = GenerateNumberedList("arg{0}", count);
 

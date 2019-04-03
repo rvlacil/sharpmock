@@ -22,11 +22,10 @@ PopIndent();
 }
 <#+
 
-private void GenerateInterface(int argCount)
+private void GenerateInterface(int count)
 {
-	var types = GenerateNumberedList("T{0}", argCount);
-	var typeList = (types == "") ? "" : $"<{types}>";
-	var typeArgs = GenerateNumberedList("T{0} arg{0}", argCount);
+	var typeList = (count == 0) ? "" : "<" + GenerateNumberedList("T{0}", count) + ">";
+	var typeArgs = GenerateNumberedList("T{0} arg{0}", count);
 
 #>
 public interface IActionEngine<#= typeList #> : IEngine

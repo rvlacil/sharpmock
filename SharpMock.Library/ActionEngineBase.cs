@@ -5,18 +5,20 @@ using System.Text;
 
 namespace SharpMock.Library
 {
-    public class ActionEngineBase : AbstractEngine
+    public abstract class ActionEngineBase : AbstractEngine
     {
-        public ActionEngineBase(string methodName)
-            : base(methodName)
-        {
-        }
+        public ActionEngineBase(string methodName) : base(methodName) { }
 
         public void Execute(Func<IMatcher, StringBuilder, bool> match, Action<IAction> action)
         {
             var index = FindMatcher(match);
-            Act(_activeSetups[index], action);
-            DepleteIf(index);
+            Act(index, action);
+            RetireIf(index);
+        }
+
+        private void Act(int index, Action<IAction> action)
+        {
+            ((IActionSetupAct)_activeSetups[index]).Act(action);
         }
     }
 }

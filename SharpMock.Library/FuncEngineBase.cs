@@ -1,6 +1,5 @@
 ﻿using SharpMock.Library.Action;
 using SharpMock.Library.Matchers;
-using SharpMock.Library.Return;
 using System;
 using System.Text;
 
@@ -10,20 +9,18 @@ namespace SharpMock.Library
     {
         public FuncEngineBase(string methodName) : base(methodName) { }
 
-        public Ret Execute(Func<IMatcher, StringBuilder, bool> match, Action<IAction> action, Func<IReturn<Ret>, Ret> response)
+        public Ret Execute(Func<IMatcher, StringBuilder, bool> match, Func<IReturn<Ret>, Ret> response)
         {
             var index = FindMatcher(match);
-            Act(_activeSetups[index], action);
-
-            var ret = Return(index, response);
-            DepleteIf(index);
+            var ret = Act(index, response);
+            RetireIf(index);
 
             return ret;
         }
 
-        private Ret Return(int index, Func<IReturn<Ret>, Ret> response)
+        private Ret Act(int index, Func<IReturn<Ret>, Ret> response)
         {
-            return ((IFuncSetupBase<Ret>)_activeSetups[index]).Respond(response);
+            return ((IFuncSetupAct<Ret>)_activeSetups[index]).Act(response);
         }
     }
 }

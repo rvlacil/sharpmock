@@ -14,24 +14,25 @@ namespace SharpMock.Library.Cardinality
             _requested = i;
         }
 
-        public bool IsDepleted()
+        public bool IsSaturated()
         {
             return false;
         }
 
         public bool IsSatisfied(StringBuilder output)
         {
-            var ret = _actual >= _requested;
-            if (!ret)
+            if (_actual < _requested)
             {
                 output.Append("requested AtLeast: ").Append(_requested).Append(" actual: ").Append(_actual).AppendLine();
+                return false;
             }
-            return ret;
+            return true;
         }
 
-        public void Mark()
+        public bool Mark(StringBuilder output)
         {
             ++_actual;
+            return true;
         }
     }
 }

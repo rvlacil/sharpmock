@@ -1,5 +1,4 @@
-﻿using SharpMock.Library.Action;
-using SharpMock.Library.Matchers;
+﻿using SharpMock.Library.Matchers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,14 +18,9 @@ namespace SharpMock.Library
             _depletedSetups = new List<ISetup>();
         }
 
-        protected void Act(ISetup setup, Action<IAction> action)
+        protected void RetireIf(int index)
         {
-            setup.Act(action);
-        }
-
-        protected void DepleteIf(int index)
-        {
-            if (!_activeSetups[index].IsDepleted()) return;
+            if (!_activeSetups[index].IsSaturated()) return;
 
             _depletedSetups.Add(_activeSetups[index]);
             _activeSetups.RemoveAt(index);
@@ -57,12 +51,18 @@ namespace SharpMock.Library
                 throw new ArgumentException(output.ToString());
             }
 
+            var cardinalityOutput = new StringBuilder();
+            if (!_activeSetups[i].Mark(cardinalityOutput))
+            {
+                throw new ArgumentException($"Found match for: {_methodName}:{Environment.NewLine}Setup{j}: matchers: {_activeSetups[i].Matcher.ToPrint()}{Environment.NewLine}Failed on cardinality: {cardinalityOutput.ToString()}");
+            }
+
             return i;
         }
 
-        public void Verify()
+        public bool Verify(StringBuilder output)
         {
-            var output = new StringBuilder("Not satisfied cardinality of setups for method: ").AppendLine(_methodName);
+            var methodOutput = new StringBuilder("For method: ").AppendLine(_methodName);
             var satisfied = true;
             foreach (var s in _activeSetups)
             {
@@ -70,12 +70,13 @@ namespace SharpMock.Library
                 var ret = s.IsSatisfied(local);
                 if (!ret)
                 {
-                    output.Append("with matchers: ").Append(s.Matcher.ToPrint()).Append(": ").Append(local);
+                    methodOutput.Append("with matchers: ").Append(s.Matcher.ToPrint()).Append(": ").Append(local);
+                    satisfied = false;
                 }
-
-                satisfied = satisfied && ret;
             }
-            if (!satisfied) throw new ArgumentException(output.ToString());
+
+            if (!satisfied) output.Append(methodOutput);
+            return satisfied;
         }
     }
 }

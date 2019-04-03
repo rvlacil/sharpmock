@@ -11,10 +11,9 @@ using System;
 
 namespace SharpMock.Library
 {
-    public interface IArgSetup<Self> : ISetup<Self> where Self : ISetup<Self>
+    public interface ISetupMatch<Self> : ISetup<Self> where Self : ISetup<Self>
     {
         Self Match();
-        Self Action(System.Action action);
     }
 
 <#
@@ -36,11 +35,9 @@ private void GenerateInterface(int argCount)
 	var arguments = GenerateNumberedList("TypedMatcher<T{0}> arg{0}", argCount);
 
 #>
-public interface IArgSetup<Self, <#= genericArgs #>> : ISetup<Self> where Self : ISetup<Self>
+public interface ISetupMatch<Self, <#= genericArgs #>> : ISetup<Self> where Self : ISetup<Self>
 {
 	Self Match(<#= arguments #>);
-	Self Action(System.Action action);
-	Self Action(Action<<#= genericArgs #>> action);
 }
 
 <#+

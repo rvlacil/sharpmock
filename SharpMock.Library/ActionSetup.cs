@@ -4,17 +4,31 @@ using System;
 
 namespace SharpMock.Library
 {
-    public class ActionSetup : SetupBase<IActionSetup>, IActionSetup
+    public class ActionSetupBase<Self> : SetupBase<Self> where Self : ISetup
+    {
+        public void Act(Action<IAction> action)
+        {
+            action(ActionContainer.Top());
+            ActionContainer.Pop();
+        }
+    }
+
+    public class ActionSetup : ActionSetupBase<IActionSetup>, IActionSetup
     {
         public ActionSetup()
         {
             Matcher = new MultiArgMatcher();
-            _action = new MultiArgAction(() => { });
         }
 
-        public IActionSetup Action(System.Action action)
+        public IActionSetup Do(System.Action action)
         {
-            _action = new MultiArgAction(action);
+            ActionContainer.Add(new MultiArgAction(action));
+            return this;
+        }
+
+        public IActionSetup DoRepeatedly(System.Action action)
+        {
+            ActionContainer.AddRepeatedly(new MultiArgAction(action));
             return this;
         }
 
@@ -24,23 +38,22 @@ namespace SharpMock.Library
         }
     }
 
-    public class ActionSetup<T> : SetupBase<IActionSetup<T>>, IActionSetup<T>
+    public class ActionSetup<T> : ActionSetupBase<IActionSetup<T>>, IActionSetup<T>
     {
         public ActionSetup()
         {
             Matcher = new MultiArgMatcher<T>(new MatcherAny<T>());
-            _action = new MultiArgAction<T>(x => { });
         }
 
-        public IActionSetup<T> Action(Action<T> action)
+        public IActionSetup<T> Do(Action<T> action)
         {
-            _action = new MultiArgAction<T>(action);
+            ActionContainer.Add(new MultiArgAction<T>(action));
             return this;
         }
 
-        public IActionSetup<T> Action(System.Action action)
+        public IActionSetup<T> DoRepeatedly(Action<T> action)
         {
-            _action = new MultiArgAction<T>((x) => action());
+            ActionContainer.AddRepeatedly(new MultiArgAction<T>(action));
             return this;
         }
 
@@ -51,23 +64,22 @@ namespace SharpMock.Library
         }
     }
 
-    public class ActionSetup<T1, T2> : SetupBase<IActionSetup<T1, T2>>, IActionSetup<T1, T2>
+    public class ActionSetup<T1, T2> : ActionSetupBase<IActionSetup<T1, T2>>, IActionSetup<T1, T2>
     {
         public ActionSetup()
         {
             Matcher = new MultiArgMatcher<T1, T2>(new MatcherAny<T1>(), new MatcherAny<T2>());
-            _action = new MultiArgAction<T1, T2>((x, y) => { });
         }
 
-        public IActionSetup<T1, T2> Action(Action<T1, T2> action)
+        public IActionSetup<T1, T2> Do(Action<T1, T2> action)
         {
-            _action = new MultiArgAction<T1, T2>(action);
+            ActionContainer.Add(new MultiArgAction<T1, T2>(action));
             return this;
         }
 
-        public IActionSetup<T1, T2> Action(System.Action action)
+        public IActionSetup<T1, T2> DoRepeatedly(Action<T1, T2> action)
         {
-            _action = new MultiArgAction<T1, T2>((x, y) => action());
+            ActionContainer.AddRepeatedly(new MultiArgAction<T1, T2>(action));
             return this;
         }
 

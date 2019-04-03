@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharpMock.Library.Return
+namespace SharpMock.Library.Action
 {
     public class MultiArgReturn<Ret> : IReturn<Ret>
     {

@@ -1,33 +1,25 @@
 ﻿using System;
 using SharpMock.Library.Action;
 using SharpMock.Library.Matchers;
-using SharpMock.Library.Return;
 
 namespace SharpMock.Library
 {
-    public abstract class FuncSetupBase<Self, Ret> : SetupBase<Self> where Self : ISetup<Self>
+    public abstract class FuncSetupBase<Self, Ret> : SetupBase<Self> where Self : ISetup
     {
-        protected IReturn<Ret> _return;
-
-        public Ret Respond(Func<IReturn<Ret>, Ret> applier)
+        public Ret Act(Func<IReturn<Ret>, Ret> action)
         {
-            return applier(_return);
+            var ret = action((IReturn<Ret>)ActionContainer.Top());
+            ActionContainer.Pop();
+            return ret;
         }
     }
+
 
     public class FuncSetup<Ret> : FuncSetupBase<IFuncSetup<Ret>, Ret>, IFuncSetup<Ret>
     {
         public FuncSetup()
         {
             Matcher = new MultiArgMatcher();
-            _action = new MultiArgAction(() => { });
-            _return = new MultiArgReturn<Ret>(() => default(Ret));
-        }
-
-        public IFuncSetup<Ret> Action(System.Action action)
-        {
-            _action = new MultiArgAction(action);
-            return this;
         }
 
         public IFuncSetup<Ret> Match()
@@ -35,15 +27,15 @@ namespace SharpMock.Library
             return this;
         }
 
-        public IFuncSetup<Ret> Return(Ret value)
+        public IFuncSetup<Ret> Do(Ret value)
         {
-            _return = new MultiArgReturn<Ret>(() => value);
+            ActionContainer.Add(new MultiArgReturn<Ret>(() => value));
             return this;
         }
 
-        public IFuncSetup<Ret> Return(Func<Ret> func)
+        public IFuncSetup<Ret> Do(Func<Ret> func)
         {
-            _return = new MultiArgReturn<Ret>(func);
+            ActionContainer.Add(new MultiArgReturn<Ret>(func));
             return this;
         }
     }
@@ -53,20 +45,6 @@ namespace SharpMock.Library
         public FuncSetup()
         {
             Matcher = new MultiArgMatcher<T>(new MatcherAny<T>());
-            _action = new MultiArgAction<T>(x => { });
-            _return = new MultiArgReturn<T, Ret>((x) => default(Ret));
-        }
-
-        public IFuncSetup<T, Ret> Action(Action<T> action)
-        {
-            _action = new MultiArgAction<T>(action);
-            return this;
-        }
-
-        public IFuncSetup<T, Ret> Action(System.Action action)
-        {
-            _action = new MultiArgAction<T>((x) => action());
-            return this;
         }
 
         public IFuncSetup<T, Ret> Match(TypedMatcher<T> arg)
@@ -75,15 +53,15 @@ namespace SharpMock.Library
             return this;
         }
 
-        public IFuncSetup<T, Ret> Return(Ret value)
+        public IFuncSetup<T, Ret> Do(Ret value)
         {
-            _return = new MultiArgReturn<T, Ret>((x) => value);
+            ActionContainer.Add(new MultiArgReturn<T, Ret>((x) => value));
             return this;
         }
 
-        public IFuncSetup<T, Ret> Return(Func<T, Ret> func)
+        public IFuncSetup<T, Ret> Do(Func<T, Ret> func)
         {
-            _return = new MultiArgReturn<T, Ret>(func);
+            ActionContainer.Add(new MultiArgReturn<T, Ret>(func));
             return this;
         }
     }
@@ -93,20 +71,6 @@ namespace SharpMock.Library
         public FuncSetup()
         {
             Matcher = new MultiArgMatcher<T1, T2>(new MatcherAny<T1>(), new MatcherAny<T2>());
-            _action = new MultiArgAction<T1, T2>((x, y) => { });
-            _return = new MultiArgReturn<T1, T2, Ret>((x, y) => default(Ret));
-        }
-
-        public IFuncSetup<T1, T2, Ret> Action(Action<T1, T2> action)
-        {
-            _action = new MultiArgAction<T1, T2>(action);
-            return this;
-        }
-
-        public IFuncSetup<T1, T2, Ret> Action(System.Action action)
-        {
-            _action = new MultiArgAction<T1, T2>((x, y) => action());
-            return this;
         }
 
         public IFuncSetup<T1, T2, Ret> Match(TypedMatcher<T1> arg1, TypedMatcher<T2> arg2)
@@ -115,15 +79,15 @@ namespace SharpMock.Library
             return this;
         }
 
-        public IFuncSetup<T1, T2, Ret> Return(Ret value)
+        public IFuncSetup<T1, T2, Ret> Do(Ret value)
         {
-            _return = new MultiArgReturn<T1, T2, Ret>((x, y) => value);
+            ActionContainer.Add(new MultiArgReturn<T1, T2, Ret>((x, y) => value));
             return this;
         }
 
-        public IFuncSetup<T1, T2, Ret> Return(Func<T1, T2, Ret> func)
+        public IFuncSetup<T1, T2, Ret> Do(Func<T1, T2, Ret> func)
         {
-            _return = new MultiArgReturn<T1, T2, Ret>(func);
+            ActionContainer.Add(new MultiArgReturn<T1, T2, Ret>(func));
             return this;
         }
     }

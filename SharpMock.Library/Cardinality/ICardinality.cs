@@ -4,8 +4,8 @@ namespace SharpMock.Library.Cardinality
 {
     public interface ICardinality
     {
-        bool IsDepleted();
-        void Mark();
+        bool IsSaturated();
+        bool Mark(StringBuilder output);
         bool IsSatisfied(StringBuilder output);
     }
 }

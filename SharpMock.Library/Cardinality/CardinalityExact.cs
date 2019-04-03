@@ -13,24 +13,35 @@ namespace SharpMock.Library.Cardinality
             _requested = count;
         }
        
-        public bool IsDepleted()
+        public bool IsSaturated()
         {
             return _actual >= _requested;
         }
 
         public bool IsSatisfied(StringBuilder output)
         {
-            var ret = _actual == _requested;
-            if (!ret)
+            if (_actual != _requested)
             {
-                output.Append("requested Exact: ").Append(_requested).Append(" actual: ").Append(_actual).AppendLine();
+                PrintError(output);
+                return false;
             }
-            return ret;
+            return true;
         }
 
-        public void Mark()
+        public bool Mark(StringBuilder output)
         {
             ++_actual;
+            if (_actual > _requested)
+            {
+                PrintError(output);
+                return false;
+            }
+            return true;
+        }
+
+        private void PrintError(StringBuilder output)
+        {
+            output.Append("requested Exact: ").Append(_requested).Append(" actual: ").Append(_actual).AppendLine();
         }
     }
 }

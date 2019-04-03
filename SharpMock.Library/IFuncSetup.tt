@@ -29,10 +29,10 @@ private void GenerateInterface(int argCount)
     var typesComma = (types == "") ? "" : types + ", ";
 
 #>
-public interface IFuncSetup<<#= typesComma #>Ret> : IArgSetup<IFuncSetup<<#= typesComma #>Ret><#= commaTypes #>>, IFuncSetupBase<Ret>
+public interface IFuncSetup<<#= typesComma #>Ret> : ISetup, ISetupMatch<IFuncSetup<<#= typesComma #>Ret><#= commaTypes #>>, ISetupCardinality<IFuncSetup<<#= typesComma #>Ret>>, IFuncSetupAct<Ret>
 {
-	IFuncSetup<<#= typesComma #>Ret> Return(Ret func);
-	IFuncSetup<<#= typesComma #>Ret> Return(Func<<#= typesComma #>Ret> func);
+	IFuncSetup<<#= typesComma #>Ret> Do(Ret func);
+	IFuncSetup<<#= typesComma #>Ret> Do(Func<<#= typesComma #>Ret> func);
 }
 
 <#+

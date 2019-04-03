@@ -1,6 +1,6 @@
 ﻿namespace SharpMock.Library.Action
 {
-    public interface IAction
+    public interface IReturn<Ret> : IAction
     {
     }
 }

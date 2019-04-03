@@ -8,7 +8,7 @@
 <#@ output extension=".cs" #>
 using System;
 
-namespace SharpMock.Library.Return
+namespace SharpMock.Library.Action
 {
 <#
 PushIndent("".PadLeft(4));

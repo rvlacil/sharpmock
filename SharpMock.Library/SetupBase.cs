@@ -1,26 +1,28 @@
 ﻿using SharpMock.Library.Action;
 using SharpMock.Library.Cardinality;
 using SharpMock.Library.Matchers;
-using System;
 using System.Text;
 
 namespace SharpMock.Library
 {
-    public abstract class SetupBase<Self> : ISetup<Self> where Self : ISetup<Self>
+    public abstract class SetupBase<Self> where Self : ISetup
     {
+        protected bool _retireOnSaturation;
         protected ICardinality _cardinality;
-        protected IAction _action;
 
+        public IActionContainer ActionContainer { get; }
         public IMatcher Matcher { get; protected set; }
 
         public SetupBase()
         {
-            _cardinality = C.Once();
+            _retireOnSaturation = false;
+            ActionContainer = new ActionContainer();
+            _cardinality = ActionContainer;
         }
 
-        public bool IsDepleted()
+        public bool IsSaturated()
         {
-            return _cardinality.IsDepleted();
+            return _retireOnSaturation && _cardinality.IsSaturated();
         }
 
         public bool IsSatisfied(StringBuilder output)
@@ -28,18 +30,27 @@ namespace SharpMock.Library
             return _cardinality.IsSatisfied(output);
         }
 
-        public void Act(System.Action<IAction> action)
+        public bool Mark(StringBuilder output)
         {
-            if (_cardinality.IsDepleted()) throw new ArgumentException("acting on setup more than arity allows");
-            _cardinality.Mark();
-
-            action(_action);
+            return _cardinality.Mark(output);
         }
 
         public Self Times(ICardinality cardinality)
         {
             _cardinality = cardinality;
-            return (Self) (ISetup<Self>) this;
+            return (Self) (ISetup) this;
+        }
+
+        public Self Times(int cardinality)
+        {
+            _cardinality = C.Times(cardinality);
+            return (Self) (ISetup) this;
+        }
+
+        public Self RetireOnSaturation()
+        {
+            _retireOnSaturation = true;
+            return (Self) (ISetup) this;
         }
     }
 }
