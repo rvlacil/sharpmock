@@ -11,15 +11,18 @@ namespace SharpMock
         {
             try
             {
-                var mock = new MockTest();
+                var mock = MockFactory.Create<ITest>();
                 var i = mock.I;
-                mock.Add().Setup(i.OneArgA, M.Any(0)).
-                    Times(1).
-                    Do(o => { });
 
-                i.OneArgA(4);
-                i.OneArgA(5);
-                i.OneArgA(6);
+                mock.Add().Setup(i.Do, M.Any(0)).
+                    DoRepeatedly(o => Console.WriteLine($"args: {o}"));
+
+                mock.Add().Setup(i.Do, M.Eq(4)).Times(C.AtLeast(1)).
+                    DoRepeatedly(o => Console.WriteLine($"args special: {o}"));
+
+                i.Do(4);
+                i.Do(5);
+                i.Do(6);
 
                 mock.Verify();
             }

@@ -10,7 +10,5 @@ namespace SharpMock.Library
         Dictionary<MethodInfo, IEngine> Engines { get; }
 
         T I { get; }
-
-        void Verify();
     }
 }

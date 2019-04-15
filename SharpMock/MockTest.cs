@@ -1,12 +1,11 @@
 ﻿using SharpMock.Library;
-using SharpMock.Library.Matchers;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace SharpMock
 {
+    /*
     public class MockTest : IMock<ITest>
     {
         public Dictionary<MethodInfo, IEngine> Engines { get; }
@@ -66,19 +65,6 @@ namespace SharpMock
             methodInfo = new Func<int, string>(I.OneArg).Method;
             Engines[methodInfo] = new FuncEngine<int, string>(methodInfo.Name);
         }
-
-
-        public void Verify()
-        {
-            var output = new StringBuilder("Not satisfied cardinality of setups:").AppendLine();
-            var ret = true;
-            foreach (var engine in Engines.Values)
-            {
-                ret = engine.Verify(output) && ret;
-            }
-
-            if (ret == false) throw new ArgumentException(output.ToString());
-        }
     }
-
+    */
 }
