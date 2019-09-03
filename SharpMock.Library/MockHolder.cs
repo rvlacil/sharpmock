@@ -42,6 +42,5 @@ namespace SharpMock.Library
         {
         	return ((IFuncEngine<T1, T2, Ret>)_mock.Engines[action.Method]).Setup().Match(m1, m2);
         }
-        
 	}
 }

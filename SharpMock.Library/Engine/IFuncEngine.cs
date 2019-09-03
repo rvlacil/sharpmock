@@ -18,5 +18,4 @@ namespace SharpMock.Library
         Ret Execute(T1 arg1, T2 arg2);
         IFuncSetup<T1, T2, Ret> Setup();
     }
-    
 }
