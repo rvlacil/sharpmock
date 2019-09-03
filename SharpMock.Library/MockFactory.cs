@@ -15,13 +15,11 @@ namespace SharpMock.Library
     {
         private static ConcurrentDictionary<Type, object> _factories = new ConcurrentDictionary<Type, object>();
 
-
         public static IMock<T> Create<T>() where T : class
         {
             var factory = _factories.GetOrAdd(typeof(T), (k) => CreateFactory<T>());
             return ((Func<IMock<T>>)factory)();
         }
-
 
         private static Func<IMock<T>> CreateFactory<T>()
         {

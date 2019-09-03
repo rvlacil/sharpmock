@@ -9,17 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SharpMock.Utils\SharpMock.Utils.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="ActionEngine.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ActionEngine.cs</LastGenOutput>
-    </None>
-    <None Update="Action\MultiArgAction.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MultiArgAction.cs</LastGenOutput>
     </None>
     <None Update="IActionEngine.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -37,21 +29,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IFuncSetup.cs</LastGenOutput>
     </None>
-    <None Update="Matchers\MultiArgMatcher.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MultiArgMatcher.cs</LastGenOutput>
-    </None>
-    <None Update="MockHolder.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MockHolder.cs</LastGenOutput>
-    </None>
     <None Update="IActionSetup.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IActionSetup.cs</LastGenOutput>
-    </None>
-    <None Update="Action\MultiArgReturn.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MultiArgReturn.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -64,11 +44,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ActionEngine.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Action\MultiArgAction.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MultiArgAction.tt</DependentUpon>
     </Compile>
     <Compile Update="IActionEngine.cs">
       <DesignTime>True</DesignTime>
@@ -94,21 +69,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>IFuncSetup.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Matchers\MultiArgMatcher.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MultiArgMatcher.tt</DependentUpon>
-    </Compile>
-    <Compile Update="MockHolder.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MockHolder.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Action\MultiArgReturn.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MultiArgReturn.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
