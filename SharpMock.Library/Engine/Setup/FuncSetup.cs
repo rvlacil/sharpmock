@@ -2,7 +2,7 @@
 using SharpMock.Library.Action;
 using SharpMock.Library.Matchers;
 
-namespace SharpMock.Library
+namespace SharpMock.Library.Engine.Setup
 {
     public abstract class FuncSetupBase<Self, Ret> : SetupBase<Self> where Self : ISetup
     {

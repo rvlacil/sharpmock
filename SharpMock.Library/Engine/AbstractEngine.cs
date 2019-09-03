@@ -1,9 +1,10 @@
-﻿using SharpMock.Library.Matchers;
+﻿using SharpMock.Library.Engine.Setup;
+using SharpMock.Library.Matchers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SharpMock.Library
+namespace SharpMock.Library.Engine
 {
     public abstract class AbstractEngine
     {

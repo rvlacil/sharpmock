@@ -3,7 +3,7 @@ using SharpMock.Library.Cardinality;
 using SharpMock.Library.Matchers;
 using System.Text;
 
-namespace SharpMock.Library
+namespace SharpMock.Library.Engine.Setup
 {
     public abstract class SetupBase<Self> where Self : ISetup
     {
@@ -38,19 +38,19 @@ namespace SharpMock.Library
         public Self Times(ICardinality cardinality)
         {
             _cardinality = cardinality;
-            return (Self) (ISetup) this;
+            return (Self)(ISetup)this;
         }
 
         public Self Times(int cardinality)
         {
             _cardinality = C.Times(cardinality);
-            return (Self) (ISetup) this;
+            return (Self)(ISetup)this;
         }
 
         public Self RetireOnSaturation()
         {
             _retireOnSaturation = true;
-            return (Self) (ISetup) this;
+            return (Self)(ISetup)this;
         }
     }
 }

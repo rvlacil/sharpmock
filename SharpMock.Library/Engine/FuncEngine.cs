@@ -1,7 +1,8 @@
 ﻿using SharpMock.Library.Action;
+using SharpMock.Library.Engine.Setup;
 using SharpMock.Library.Matchers;
 
-namespace SharpMock.Library
+namespace SharpMock.Library.Engine
 {
     public class FuncEngine<Ret> : FuncEngineBase<Ret>, IFuncEngine<Ret>
     {

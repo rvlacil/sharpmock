@@ -2,7 +2,7 @@
 using SharpMock.Library.Action;
 using System;
 
-namespace SharpMock.Library
+namespace SharpMock.Library.Engine.Setup
 {
     public class ActionSetupBase<Self> : SetupBase<Self> where Self : ISetup
     {

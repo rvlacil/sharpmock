@@ -1,4 +1,6 @@
 ﻿
+using SharpMock.Library.Engine;
+using SharpMock.Library.Engine.Setup;
 using SharpMock.Library.Matchers;
 using System;
 

@@ -1,6 +1,6 @@
 ﻿using SharpMock.Library.Cardinality;
 
-namespace SharpMock.Library
+namespace SharpMock.Library.Engine.Setup
 {
     public interface ISetupCardinality<Self> : ISetup where Self : ISetupCardinality<Self>
     {
