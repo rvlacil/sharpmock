@@ -114,6 +114,11 @@ namespace SharpMock.Library.GeneratedMocks
 
             {CreateEngines<T>()}
         }}
+
+        public void Dispose()
+        {{
+            this.Verify();
+        }}
     }}
 }}";
             return CSharpSyntaxTree.ParseText(code);

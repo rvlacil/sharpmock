@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace SharpMock.Library
 {
-    public interface IMock<T>
+    public interface IMock<T> : IDisposable
     {
         Dictionary<MethodInfo, IEngine> Engines { get; }
 
