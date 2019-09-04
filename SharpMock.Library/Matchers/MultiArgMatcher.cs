@@ -5,8 +5,6 @@ namespace SharpMock.Library.Matchers
     
     public class MultiArgMatcher : MultiArgMatcherBase
     {
-        
-    
         public MultiArgMatcher()
             : base("")
         {
@@ -52,7 +50,4 @@ namespace SharpMock.Library.Matchers
             return DoMatch(_matcher1, arg1, "1", output) && DoMatch(_matcher2, arg2, "2", output);
         }
     }
-    
 }
-
-
