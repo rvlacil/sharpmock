@@ -17,5 +17,10 @@ namespace SharpMock.Library
 
             if (ret == false) throw new ArgumentException(output.ToString());
         }
+
+        public static MockHolder<I> Add<I>(this IMock<I> mock)
+        {
+            return new MockHolder<I>(mock);
+        }
     }
 }

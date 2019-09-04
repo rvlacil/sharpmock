@@ -1,5 +1,6 @@
 ﻿using SharpMock.Library;
 using SharpMock.Library.Cardinality;
+using SharpMock.Library.Engine.Setup;
 using SharpMock.Library.Matchers;
 using System;
 

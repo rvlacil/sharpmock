@@ -20,15 +20,9 @@ namespace SharpMock.Library.Engine.Setup
             Matcher = new MultiArgMatcher();
         }
 
-        public IActionSetup Do(System.Action action)
+        public IActionSetup Do(System.Action action, bool repeated)
         {
-            ActionContainer.Add(new MultiArgAction(action));
-            return this;
-        }
-
-        public IActionSetup DoRepeatedly(System.Action action)
-        {
-            ActionContainer.AddRepeatedly(new MultiArgAction(action));
+            ActionContainer.Add(new MultiArgAction(action), repeated);
             return this;
         }
 
@@ -45,15 +39,9 @@ namespace SharpMock.Library.Engine.Setup
             Matcher = new MultiArgMatcher<T>(new MatcherAny<T>());
         }
 
-        public IActionSetup<T> Do(Action<T> action)
+        public IActionSetup<T> Do(Action<T> action, bool repeated)
         {
-            ActionContainer.Add(new MultiArgAction<T>(action));
-            return this;
-        }
-
-        public IActionSetup<T> DoRepeatedly(Action<T> action)
-        {
-            ActionContainer.AddRepeatedly(new MultiArgAction<T>(action));
+            ActionContainer.Add(new MultiArgAction<T>(action), repeated);
             return this;
         }
 
@@ -71,15 +59,9 @@ namespace SharpMock.Library.Engine.Setup
             Matcher = new MultiArgMatcher<T1, T2>(new MatcherAny<T1>(), new MatcherAny<T2>());
         }
 
-        public IActionSetup<T1, T2> Do(Action<T1, T2> action)
+        public IActionSetup<T1, T2> Do(Action<T1, T2> action, bool repeated)
         {
-            ActionContainer.Add(new MultiArgAction<T1, T2>(action));
-            return this;
-        }
-
-        public IActionSetup<T1, T2> DoRepeatedly(Action<T1, T2> action)
-        {
-            ActionContainer.AddRepeatedly(new MultiArgAction<T1, T2>(action));
+            ActionContainer.Add(new MultiArgAction<T1, T2>(action), repeated);
             return this;
         }
 

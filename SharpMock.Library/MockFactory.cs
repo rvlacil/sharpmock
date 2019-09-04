@@ -80,6 +80,7 @@ namespace SharpMock.Library
             var code =
 $@"using System;
 using SharpMock.Library;
+using SharpMock.Library.Engine;
 using System;
 using System.Collections.Generic;
 using System.Reflection;

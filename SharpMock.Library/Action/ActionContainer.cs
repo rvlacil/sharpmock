@@ -14,14 +14,9 @@ namespace SharpMock.Library.Action
             _actions = new List<(IAction Action, bool IsRepeated)>();
         }
 
-        public void Add(IAction action)
+        public void Add(IAction action, bool repeated)
         {
-            _actions.Add((action, false));
-        }
-
-        public void AddRepeatedly(IAction action)
-        {
-            _actions.Add((action, true));
+            _actions.Add((action, repeated));
         }
 
         public bool IsSaturated()

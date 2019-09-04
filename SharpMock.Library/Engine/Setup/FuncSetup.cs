@@ -14,7 +14,6 @@ namespace SharpMock.Library.Engine.Setup
         }
     }
 
-
     public class FuncSetup<Ret> : FuncSetupBase<IFuncSetup<Ret>, Ret>, IFuncSetup<Ret>
     {
         public FuncSetup()
@@ -27,15 +26,9 @@ namespace SharpMock.Library.Engine.Setup
             return this;
         }
 
-        public IFuncSetup<Ret> Do(Ret value)
+        public IFuncSetup<Ret> Do(Func<Ret> func, bool repeated)
         {
-            ActionContainer.Add(new MultiArgReturn<Ret>(() => value));
-            return this;
-        }
-
-        public IFuncSetup<Ret> Do(Func<Ret> func)
-        {
-            ActionContainer.Add(new MultiArgReturn<Ret>(func));
+            ActionContainer.Add(new MultiArgReturn<Ret>(func), repeated);
             return this;
         }
     }
@@ -53,15 +46,9 @@ namespace SharpMock.Library.Engine.Setup
             return this;
         }
 
-        public IFuncSetup<T, Ret> Do(Ret value)
+        public IFuncSetup<T, Ret> Do(Func<T, Ret> func, bool repeated)
         {
-            ActionContainer.Add(new MultiArgReturn<T, Ret>((x) => value));
-            return this;
-        }
-
-        public IFuncSetup<T, Ret> Do(Func<T, Ret> func)
-        {
-            ActionContainer.Add(new MultiArgReturn<T, Ret>(func));
+            ActionContainer.Add(new MultiArgReturn<T, Ret>(func), repeated);
             return this;
         }
     }
@@ -79,15 +66,9 @@ namespace SharpMock.Library.Engine.Setup
             return this;
         }
 
-        public IFuncSetup<T1, T2, Ret> Do(Ret value)
+        public IFuncSetup<T1, T2, Ret> Do(Func<T1, T2, Ret> func, bool repeated)
         {
-            ActionContainer.Add(new MultiArgReturn<T1, T2, Ret>((x, y) => value));
-            return this;
-        }
-
-        public IFuncSetup<T1, T2, Ret> Do(Func<T1, T2, Ret> func)
-        {
-            ActionContainer.Add(new MultiArgReturn<T1, T2, Ret>(func));
+            ActionContainer.Add(new MultiArgReturn<T1, T2, Ret>(func), repeated);
             return this;
         }
     }
