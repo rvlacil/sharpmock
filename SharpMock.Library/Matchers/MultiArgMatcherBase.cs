@@ -16,7 +16,7 @@ namespace SharpMock.Library.Matchers
             return _toPrint;
         }
 
-        protected static bool DoMatch<T>(ITypedMatcher<T> matcher, T arg, string argIndex, StringBuilder output)
+        protected static bool TryMatch<T>(ITypedMatcher<T> matcher, T arg, string argIndex, StringBuilder output)
         {
             var local = new StringBuilder();
             var matched = matcher.Match(arg, local);

@@ -10,7 +10,7 @@ namespace SharpMock.Library.Engine
 
         public void Execute()
         {
-            Execute((m, o) => ((MultiArgMatcher)m).Match(o),
+            Execute((m, o) => ((MultiArgMatcher)m).TryMatch(o),
                 x => ((MultiArgAction)x).Execute());
         }
 
@@ -29,7 +29,7 @@ namespace SharpMock.Library.Engine
 
         public void Execute(T1 arg1)
         {
-            Execute((m, o) => ((MultiArgMatcher<T1>)m).Match(arg1, o),
+            Execute((m, o) => ((MultiArgMatcher<T1>)m).TryMatch(arg1, o),
                 x => ((MultiArgAction<T1>)x).Execute(arg1));
         }
 
@@ -48,7 +48,7 @@ namespace SharpMock.Library.Engine
 
         public void Execute(T1 arg1, T2 arg2)
         {
-            Execute((m, o) => ((MultiArgMatcher<T1, T2>)m).Match(arg1, arg2, o),
+            Execute((m, o) => ((MultiArgMatcher<T1, T2>)m).TryMatch(arg1, arg2, o),
                 x => ((MultiArgAction<T1, T2>)x).Execute(arg1, arg2));
         }
 

@@ -8,10 +8,9 @@ namespace SharpMock.Library.Matchers
         public MultiArgMatcher()
             : base("")
         {
-            
         }
     
-        public bool Match(StringBuilder output)
+        public bool TryMatch(StringBuilder output)
         {
             return true;
         }
@@ -28,9 +27,9 @@ namespace SharpMock.Library.Matchers
             _matcher1 = matcher1;
         }
     
-        public bool Match(T1 arg1, StringBuilder output)
+        public bool TryMatch(T1 arg1, StringBuilder output)
         {
-            return DoMatch(_matcher1, arg1, "1", output);
+            return TryMatch(_matcher1, arg1, "1", output);
         }
     }
     
@@ -42,12 +41,13 @@ namespace SharpMock.Library.Matchers
         public MultiArgMatcher(ITypedMatcher<T1> matcher1, ITypedMatcher<T2> matcher2)
             : base(matcher1.ToPrint() + ", " + matcher2.ToPrint())
         {
-            _matcher1 = matcher1; _matcher2 = matcher2;
+            _matcher1 = matcher1;
+            _matcher2 = matcher2;
         }
     
-        public bool Match(T1 arg1, T2 arg2, StringBuilder output)
+        public bool TryMatch(T1 arg1, T2 arg2, StringBuilder output)
         {
-            return DoMatch(_matcher1, arg1, "1", output) && DoMatch(_matcher2, arg2, "2", output);
+            return TryMatch(_matcher1, arg1, "1", output) && TryMatch(_matcher2, arg2, "2", output);
         }
     }
 }

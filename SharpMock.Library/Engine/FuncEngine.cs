@@ -10,7 +10,7 @@ namespace SharpMock.Library.Engine
 
         public Ret Execute()
         {
-            return Execute((m, o) => ((MultiArgMatcher)m).Match(o), x => ((MultiArgReturn<Ret>)x).Respond());
+            return Execute((m, o) => ((MultiArgMatcher)m).TryMatch(o), x => ((MultiArgReturn<Ret>)x).Respond());
         }
 
         public IFuncSetup<Ret> Setup()
@@ -28,7 +28,7 @@ namespace SharpMock.Library.Engine
 
         public Ret Execute(T arg)
         {
-            return Execute((m, o) => ((MultiArgMatcher<T>)m).Match(arg, o), x => ((MultiArgReturn<T, Ret>)x).Respond(arg));
+            return Execute((m, o) => ((MultiArgMatcher<T>)m).TryMatch(arg, o), x => ((MultiArgReturn<T, Ret>)x).Respond(arg));
         }
 
         public IFuncSetup<T, Ret> Setup()
@@ -46,7 +46,7 @@ namespace SharpMock.Library.Engine
 
         public Ret Execute(T1 arg1, T2 arg2)
         {
-            return Execute((m, o) => ((MultiArgMatcher<T1, T2>)m).Match(arg1, arg2, o), x => ((MultiArgReturn<T1, T2, Ret>)x).Respond(arg1, arg2));
+            return Execute((m, o) => ((MultiArgMatcher<T1, T2>)m).TryMatch(arg1, arg2, o), x => ((MultiArgReturn<T1, T2, Ret>)x).Respond(arg1, arg2));
         }
 
         public IFuncSetup<T1, T2, Ret> Setup()
