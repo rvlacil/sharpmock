@@ -17,6 +17,7 @@ namespace SharpMock
                     var i = mock.I;
 
                     mock.Add().Setup(i.Do, M.Any(0)).
+                        Do(() => Console.WriteLine("FirstTest")).
                         DoRepeatedly(o => Console.WriteLine($"args: {o}"));
 
                     mock.Add().Setup(i.Do, M.Eq(4)).Times(C.AtLeast(1)).

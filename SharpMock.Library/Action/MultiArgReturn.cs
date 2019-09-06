@@ -6,7 +6,7 @@ namespace SharpMock.Library.Action
     {
         private readonly Func<Ret> _action;
     
-        public MultiArgReturn(System.Func<Ret> action)
+        public MultiArgReturn(Func<Ret> action)
         {
             _action = action;
         }
@@ -21,7 +21,7 @@ namespace SharpMock.Library.Action
     {
         private readonly Func<T1, Ret> _action;
     
-        public MultiArgReturn(System.Func<T1, Ret> action)
+        public MultiArgReturn(Func<T1, Ret> action)
         {
             _action = action;
         }
@@ -36,7 +36,7 @@ namespace SharpMock.Library.Action
     {
         private readonly Func<T1, T2, Ret> _action;
     
-        public MultiArgReturn(System.Func<T1, T2, Ret> action)
+        public MultiArgReturn(Func<T1, T2, Ret> action)
         {
             _action = action;
         }
@@ -46,5 +46,4 @@ namespace SharpMock.Library.Action
             return _action(arg1, arg2);
         }
     }
-    
 }
