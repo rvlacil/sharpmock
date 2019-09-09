@@ -12,25 +12,24 @@ namespace SharpMock
         {
             try
             {
-                using (var mock = MockFactory.Create<ITest>())
-                {
-                    var i = mock.I;
+                var mock = MockFactory.Create<ITest>();
+                var i = mock.I;
 
-                    mock.Add().Setup(i.Do, M.Any(0)).
-                        Do(() => Console.WriteLine("FirstTest")).
-                        DoRepeatedly(o => Console.WriteLine($"args: {o}"));
+                mock.Add().Setup(i.Do, M.Any(0)).
+                    Do(o => Console.WriteLine($"args: {o}"));
 
-                    mock.Add().Setup(i.Do, M.Eq(4)).Times(C.AtLeast(1)).
-                        DoRepeatedly(o => Console.WriteLine($"args special: {o}"));
+                mock.Add().Setup(i.Do, M.Eq(4)).Times(C.AtLeast(1)).
+                    DoRepeatedly(o => Console.WriteLine($"args special: {o}"));
 
-                    i.Do(4);
-                    i.Do(5);
-                    i.Do(6);
-                }
+                i.Do(5);
+                i.Do(5);
+                i.Do(6);
+
+                mock.Verify();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception: " + e.Message);
+                Console.WriteLine("Exception:" + Environment.NewLine + e.Message);
             }
         }
     }

@@ -4,7 +4,7 @@ namespace SharpMock.Library.Matchers
 {
     public interface ITypedMatcher<T>
     {
-        bool Match(T arg, StringBuilder builder);
+        bool Match(T arg, IMatchResultListener builder);
         string ToPrint();
     }
 
@@ -22,7 +22,7 @@ namespace SharpMock.Library.Matchers
             return _toPrint;
         }
 
-        public abstract bool Match(T arg, StringBuilder builder);
+        public abstract bool Match(T arg, IMatchResultListener builder);
 
         public static implicit operator TypedMatcher<T>(MatcherAny any)
         {

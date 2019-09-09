@@ -19,65 +19,96 @@ namespace SharpMock.Library.Engine
             _depletedSetups = new List<ISetup>();
         }
 
-        protected void RetireIf(int index)
+        protected void RetireIf(ISetup setup)
         {
-            if (!_activeSetups[index].IsSaturated()) return;
+            if (!setup.IsSaturated()) return;
 
-            _depletedSetups.Add(_activeSetups[index]);
-            _activeSetups.RemoveAt(index);
+            _depletedSetups.Add(setup);
+            _activeSetups.Remove(setup);
         }
 
-        protected int FindMatcher(Func<IMatcher, StringBuilder, bool> match)
+        protected ISetup FindMatcher(Func<IMatcher, IMatchResultListener, bool> match)
         {
             if (_activeSetups.Count == 0) throw new ArgumentException("nothing set up");
 
-            int i = _activeSetups.Count - 1;
-            int j = 1;
-            var output = new StringBuilder("Trying to find a match for: ").AppendLine(_methodName);
+            var listener = new MatchResultListener();
+            listener.Append("Trying to find a match for: ").AppendLine(_methodName);
 
-            while (i >= 0)
-            {
-                var local = new StringBuilder();
-                if (match(_activeSetups[i].Matcher, local)) break;
+            var setup = FindAccrodingToArgs(listener, match);
+            MarkCardinality(setup, listener);
 
-                output.Append("Setup").Append(j).Append(": matchers: ").AppendLine(_activeSetups[i].Matcher.ToPrint());
-                output.Append("".PadLeft(4)).Append(local);
-
-                --i;
-                ++j;
-            }
-
-            if (i < 0)
-            {
-                throw new ArgumentException(output.ToString());
-            }
-
-            var cardinalityOutput = new StringBuilder();
-            if (!_activeSetups[i].Mark(cardinalityOutput))
-            {
-                throw new ArgumentException($"Found match for: {_methodName}:{Environment.NewLine}Setup{j}: matchers: {_activeSetups[i].Matcher.ToPrint()}{Environment.NewLine}Failed on cardinality: {cardinalityOutput.ToString()}");
-            }
-
-            return i;
+            return setup;
         }
 
-        public bool Verify(StringBuilder output)
+        private ISetup FindAccrodingToArgs(IMatchResultListener listener, Func<IMatcher, IMatchResultListener, bool> match)
         {
-            var methodOutput = new StringBuilder("For method: ").AppendLine(_methodName);
-            var satisfied = true;
-            foreach (var s in _activeSetups)
+            int i = _activeSetups.Count - 1;
+
+            using (var scope = listener.NewScope())
             {
-                var local = new StringBuilder();
-                var ret = s.IsSatisfied(local);
-                if (!ret)
+                while (i >= 0)
                 {
-                    methodOutput.Append("with matchers: ").Append(s.Matcher.ToPrint()).Append(": ").Append(local);
-                    satisfied = false;
+                    if (TryMatcher(_activeSetups[i].Matcher, listener, match))
+                    {
+                        scope.DropScope();
+                        break;
+                    }
+
+                    --i;
                 }
             }
 
-            if (!satisfied) output.Append(methodOutput);
-            return satisfied;
+            if (i < 0) throw new ArgumentException(listener.Message());
+            return _activeSetups[i];
+        }
+
+        private bool TryMatcher(IMatcher matcher, IMatchResultListener listener, Func<IMatcher, IMatchResultListener, bool> match)
+        {
+            listener.Append("Setup with matcher:").AppendLine(matcher.ToPrint());
+            using (var scope = listener.NewScope())
+            {
+                return match(matcher, listener);
+            }
+        }
+
+        private void MarkCardinality(ISetup setup, IMatchResultListener listener)
+        {
+            using (var scope = listener.NewScope())
+            {
+                scope.Append($"Found Setup with matchers: ").Append(setup.Matcher.ToPrint()).AppendLine(": Failed on cardinality: ");
+
+                using (var inner = listener.NewScope())
+                {
+                    if (!setup.Mark(listener))
+                    {
+                        throw new ArgumentException(listener.Message());
+                    }
+                }
+
+                scope.DropScope();
+            }
+        }
+
+        public bool Verify(IMatchResultListener output)
+        {
+            using (var scope = output.NewScope())
+            {
+                output.Append("For method: ").AppendLine(_methodName);
+                var satisfied = true;
+                foreach (var s in _activeSetups)
+                {
+                    using (var inner = output.NewScope())
+                    {
+                        inner.Append("with matchers: ").Append(s.Matcher.ToPrint()).AppendLine(": ");
+                        var localSatisfied = s.IsSatisfied(output);
+                        if (localSatisfied) inner.DropScope();
+                        satisfied = localSatisfied && satisfied;
+                    }
+                }
+
+                if (satisfied) scope.DropScope();
+                return satisfied;
+            }
         }
     }
 }

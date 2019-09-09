@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SharpMock.Library.Matchers
 {
@@ -14,7 +13,7 @@ namespace SharpMock.Library.Matchers
             _matchers = matchers;
         }
 
-        public override bool Match(T arg, StringBuilder output)
+        public override bool Match(T arg, IMatchResultListener output)
         {
             bool ret = true;
             foreach (var matcher in _matchers)

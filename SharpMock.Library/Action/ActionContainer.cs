@@ -1,17 +1,17 @@
-﻿using SharpMock.Library.Cardinality;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SharpMock.Library.Action
 {
     public class ActionContainer : IActionContainer
     {
         private readonly List<(IAction Action, bool IsRepeated)> _actions;
+        private readonly List<IAction> _used;
 
         public ActionContainer()
         {
             _actions = new List<(IAction Action, bool IsRepeated)>();
+            _used = new List<IAction>();
         }
 
         public void Add(IAction action, bool repeated)
@@ -24,22 +24,22 @@ namespace SharpMock.Library.Action
             return _actions.Count == 0;
         }
 
-        public bool IsSatisfied(StringBuilder output)
+        public bool IsSatisfied(IMatchResultListener output)
         {
             if (_actions.Count == 0) return true;
             if (_actions[0].IsRepeated == false)
             {
-                output.Append($"Action Implicit Cardinality: There is still {_actions.Count} action(s) to be processed");
+                output.AppendLine($"Action Implicit Cardinality: Requested actions: {_actions.Count + _used.Count}, to process {_actions.Count}");
                 return false;
             }
             return true;
         }
 
-        public bool Mark(StringBuilder output)
+        public bool Mark(IMatchResultListener output)
         {
             if (_actions.Count == 0)
             {
-                output.Append($"Action Implicit Cardinality: There are no actions set up");
+                output.AppendLine($"Action Implicit Cardinality: Requested actions: {_used.Count}, but all have been already processed");
                 return false;
             }
             return true;
@@ -49,6 +49,7 @@ namespace SharpMock.Library.Action
         {
             if (_actions.Count == 0) return;
             if (_actions[0].IsRepeated) return;
+            _used.Add(_actions[0].Action);
             _actions.RemoveAt(0);
         }
 

@@ -25,12 +25,12 @@ namespace SharpMock.Library.Engine.Setup
             return _retireOnSaturation && _cardinality.IsSaturated();
         }
 
-        public bool IsSatisfied(StringBuilder output)
+        public bool IsSatisfied(IMatchResultListener output)
         {
             return _cardinality.IsSatisfied(output);
         }
 
-        public bool Mark(StringBuilder output)
+        public bool Mark(IMatchResultListener output)
         {
             return _cardinality.Mark(output);
         }

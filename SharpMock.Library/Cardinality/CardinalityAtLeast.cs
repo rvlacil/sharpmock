@@ -19,7 +19,7 @@ namespace SharpMock.Library.Cardinality
             return false;
         }
 
-        public bool IsSatisfied(StringBuilder output)
+        public bool IsSatisfied(IMatchResultListener output)
         {
             if (_actual < _requested)
             {
@@ -29,7 +29,7 @@ namespace SharpMock.Library.Cardinality
             return true;
         }
 
-        public bool Mark(StringBuilder output)
+        public bool Mark(IMatchResultListener output)
         {
             ++_actual;
             return true;

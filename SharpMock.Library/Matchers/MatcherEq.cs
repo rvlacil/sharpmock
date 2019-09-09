@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 
 namespace SharpMock.Library.Matchers
 {
@@ -13,10 +12,14 @@ namespace SharpMock.Library.Matchers
             _value = value;
         }
 
-        override public bool Match(T arg, StringBuilder output)
+        override public bool Match(T arg, IMatchResultListener output)
         {
             var ret = EqualityComparer<T>.Default.Equals(arg, _value);
-            if (!ret) output.AppendLine("Expected: '" + _value.ToString() + "' Passed: '" + arg.ToString() + "'");
+            if (!ret)
+            {
+                output.Append("Expected: '").Append(_value.ToString()).AppendLine("'");
+                output.Append("Passed: '").Append(arg.ToString()).AppendLine("'");
+            }
 
             return ret;
         }

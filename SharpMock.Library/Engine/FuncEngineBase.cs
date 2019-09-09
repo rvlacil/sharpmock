@@ -10,18 +10,18 @@ namespace SharpMock.Library.Engine
     {
         public FuncEngineBase(string methodName) : base(methodName) { }
 
-        public Ret Execute(Func<IMatcher, StringBuilder, bool> match, Func<IReturn<Ret>, Ret> response)
+        public Ret Execute(Func<IMatcher, IMatchResultListener, bool> match, Func<IReturn<Ret>, Ret> response)
         {
-            var index = FindMatcher(match);
-            var ret = Act(index, response);
-            RetireIf(index);
+            var setup = FindMatcher(match);
+            var ret = Act(setup, response);
+            RetireIf(setup);
 
             return ret;
         }
 
-        private Ret Act(int index, Func<IReturn<Ret>, Ret> response)
+        private Ret Act(ISetup setup, Func<IReturn<Ret>, Ret> response)
         {
-            return ((IFuncSetupAct<Ret>)_activeSetups[index]).Act(response);
+            return ((IFuncSetupAct<Ret>)setup).Act(response);
         }
     }
 }

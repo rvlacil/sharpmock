@@ -8,14 +8,16 @@ namespace SharpMock.Library
     {
         public static void Verify<T>(this IMock<T> mock)
         {
-            var output = new StringBuilder("Not satisfied cardinality of setups:").AppendLine();
+            var output = new MatchResultListener();
+            output.AppendLine("Not satisfied cardinality of setups:");
+
             var ret = true;
             foreach (var engine in mock.Engines.Values)
             {
                 ret = engine.Verify(output) && ret;
             }
 
-            if (ret == false) throw new ArgumentException(output.ToString());
+            if (ret == false) throw new ArgumentException(output.Message());
         }
 
         public static MockHolder<I> Add<I>(this IMock<I> mock)

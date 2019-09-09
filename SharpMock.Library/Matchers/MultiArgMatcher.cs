@@ -10,7 +10,7 @@ namespace SharpMock.Library.Matchers
         {
         }
     
-        public bool TryMatch(StringBuilder output)
+        public bool TryMatch(IMatchResultListener output)
         {
             return true;
         }
@@ -27,7 +27,7 @@ namespace SharpMock.Library.Matchers
             _matcher1 = matcher1;
         }
     
-        public bool TryMatch(T1 arg1, StringBuilder output)
+        public bool TryMatch(T1 arg1, IMatchResultListener output)
         {
             return TryMatch(_matcher1, arg1, "1", output);
         }
@@ -45,7 +45,7 @@ namespace SharpMock.Library.Matchers
             _matcher2 = matcher2;
         }
     
-        public bool TryMatch(T1 arg1, T2 arg2, StringBuilder output)
+        public bool TryMatch(T1 arg1, T2 arg2, IMatchResultListener output)
         {
             return TryMatch(_matcher1, arg1, "1", output) && TryMatch(_matcher2, arg2, "2", output);
         }

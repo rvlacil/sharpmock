@@ -9,12 +9,12 @@ namespace SharpMock.Library.Cardinality
             return false;
         }
 
-        public bool IsSatisfied(StringBuilder output)
+        public bool IsSatisfied(IMatchResultListener output)
         {
             return true;
         }
 
-        public bool Mark(StringBuilder output)
+        public bool Mark(IMatchResultListener output)
         {
             return true;
         }

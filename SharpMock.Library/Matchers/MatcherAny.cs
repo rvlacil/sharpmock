@@ -9,7 +9,7 @@ namespace SharpMock.Library.Matchers
         {
         }
 
-        public override bool Match(T request, StringBuilder output)
+        public override bool Match(T request, IMatchResultListener output)
         {
             return true;
         }

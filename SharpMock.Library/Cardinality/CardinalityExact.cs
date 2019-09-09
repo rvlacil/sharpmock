@@ -18,7 +18,7 @@ namespace SharpMock.Library.Cardinality
             return _actual >= _requested;
         }
 
-        public bool IsSatisfied(StringBuilder output)
+        public bool IsSatisfied(IMatchResultListener output)
         {
             if (_actual != _requested)
             {
@@ -28,7 +28,7 @@ namespace SharpMock.Library.Cardinality
             return true;
         }
 
-        public bool Mark(StringBuilder output)
+        public bool Mark(IMatchResultListener output)
         {
             ++_actual;
             if (_actual > _requested)
@@ -39,7 +39,7 @@ namespace SharpMock.Library.Cardinality
             return true;
         }
 
-        private void PrintError(StringBuilder output)
+        private void PrintError(IMatchResultListener output)
         {
             output.Append("requested Exact: ").Append(_requested).Append(" actual: ").Append(_actual).AppendLine();
         }

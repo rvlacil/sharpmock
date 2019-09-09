@@ -16,15 +16,13 @@ namespace SharpMock.Library.Matchers
             return _toPrint;
         }
 
-        protected static bool TryMatch<T>(ITypedMatcher<T> matcher, T arg, string argIndex, StringBuilder output)
+        protected static bool TryMatch<T>(ITypedMatcher<T> matcher, T arg, string argIndex, IMatchResultListener output)
         {
-            var local = new StringBuilder();
-            var matched = matcher.Match(arg, local);
-            if (!matched)
+            output.Append("Arg").Append(argIndex).AppendLine(": ");
+            using (var scope = output.NewScope())
             {
-                output.Append("Arg").Append(argIndex).Append(": ").Append(local);
+                return matcher.Match(arg, output);
             }
-            return matched;
         }
     }
 }
