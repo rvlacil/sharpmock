@@ -14,14 +14,12 @@ namespace SharpMock.Library.Matchers
 
         override public bool Match(T arg, IMatchResultListener output)
         {
-            var ret = EqualityComparer<T>.Default.Equals(arg, _value);
-            if (!ret)
-            {
-                output.Append("Expected: '").Append(_value.ToString()).AppendLine("'");
-                output.Append("Passed: '").Append(arg.ToString()).AppendLine("'");
-            }
+            if (EqualityComparer<T>.Default.Equals(arg, _value)) return true;
 
-            return ret;
+            output.Append("Expected: '").Append(_value.ToString()).AppendLine("'");
+            output.Append("Passed: '").Append(arg.ToString()).AppendLine("'");
+
+            return false;
         }
     }
 }
