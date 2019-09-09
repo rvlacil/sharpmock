@@ -2,6 +2,7 @@
 using SharpMock.Library.Cardinality;
 using SharpMock.Library.Engine.Setup;
 using SharpMock.Library.Matchers;
+using SharpMock.Factory;
 using System;
 
 namespace SharpMock
@@ -16,12 +17,12 @@ namespace SharpMock
                 var i = mock.I;
 
                 mock.Add().Setup(i.Do, M.Any(0)).
-                    Do(o => Console.WriteLine($"args: {o}"));
+                    DoRepeatedly(o => Console.WriteLine($"args: {o}"));
 
                 mock.Add().Setup(i.Do, M.Eq(4)).Times(C.AtLeast(1)).
                     DoRepeatedly(o => Console.WriteLine($"args special: {o}"));
 
-                i.Do(5);
+                i.Do(4);
                 i.Do(5);
                 i.Do(6);
 

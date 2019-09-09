@@ -9,7 +9,9 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace SharpMock.Library
+using SharpMock.Library;
+
+namespace SharpMock.Factory
 {
     public static class MockFactory
     {
