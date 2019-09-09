@@ -97,11 +97,11 @@ namespace SharpMock.Library.GeneratedMocks
         
         private class MockedInterface : {mockedTypeName}
         {{
-            private IMock<{mockedTypeName}> Mock {{ get; }}
+            private readonly IMock<{mockedTypeName}> _mock;
 
             public MockedInterface(IMock<{mockedTypeName}> mock)
             {{
-                Mock = mock;
+                _mock = mock;
             }}
 
             {ImplementEngineHooks<T>()}
@@ -115,11 +115,6 @@ namespace SharpMock.Library.GeneratedMocks
             MethodInfo methodInfo;
 
             {CreateEngines<T>()}
-        }}
-
-        public void Dispose()
-        {{
-            this.Verify();
         }}
     }}
 }}";
@@ -176,7 +171,7 @@ namespace SharpMock.Library.GeneratedMocks
                 $@"public {returnTypeStr} {info.Name}({argTypesNamesStr})
                 {{
                     var info = (MethodInfo)MethodBase.GetCurrentMethod();
-                    {returnStatement}(({engineTypeStr})Mock.Engines[info]).Execute({argNamesStr});
+                    {returnStatement}(({engineTypeStr})_mock.Engines[info]).Execute({argNamesStr});
                 }}";
         }
 
