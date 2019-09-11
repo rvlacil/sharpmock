@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpMock.Library", "SharpM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpMock.Http", "SharpMock.Http\SharpMock.Http.csproj", "{6A840138-DD9E-4F32-B1C4-3B75FBC343E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMock.Factory", "SharpMock.Factory\SharpMock.Factory.csproj", "{9B9F3436-7FDC-4377-ADED-647799E7BE6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpMock.Factory", "SharpMock.Factory\SharpMock.Factory.csproj", "{9B9F3436-7FDC-4377-ADED-647799E7BE6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMock.Http.Test", "SharpMock.Http.Test\SharpMock.Http.Test.csproj", "{455F7995-A4C5-46E4-ABC5-D63866A4E1F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9B9F3436-7FDC-4377-ADED-647799E7BE6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B9F3436-7FDC-4377-ADED-647799E7BE6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B9F3436-7FDC-4377-ADED-647799E7BE6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{455F7995-A4C5-46E4-ABC5-D63866A4E1F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{455F7995-A4C5-46E4-ABC5-D63866A4E1F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{455F7995-A4C5-46E4-ABC5-D63866A4E1F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{455F7995-A4C5-46E4-ABC5-D63866A4E1F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
