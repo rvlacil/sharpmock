@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using SharpMock.Library;
+﻿using SharpMock.Library;
 using SharpMock.Library.Matchers;
 
 namespace SharpMock.Http.Matcher
 {
-    public class MethodMatcher : TypedMatcher<HttpRequest>
+    public class MethodMatcher : TypedMatcher<HttpRequestMessage>
     {
         private readonly string _method;
 
@@ -14,7 +13,7 @@ namespace SharpMock.Http.Matcher
             _method = method;
         }
 
-        public override bool Match(HttpRequest arg, IMatchResultListener listener)
+        public override bool Match(HttpRequestMessage arg, IMatchResultListener listener)
         {
             if (arg.Method == _method) return true;
 

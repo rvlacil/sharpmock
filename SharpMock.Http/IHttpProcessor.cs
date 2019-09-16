@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace SharpMock.Http
 {
-    public interface IHttpServer
+    public interface IHttpProcessor
     {
-        Task<HttpResponse> Reply(HttpRequest request);
+        Task<HttpResponseMessage> Reply(HttpRequestMessage request);
     }
 }

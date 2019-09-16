@@ -37,5 +37,9 @@ namespace SharpMock.Http.Test.Utils
         {
             throw new NotImplementedException();
         }
+
+        public TestHttpRequest()
+        {
+        }
     }
 }
