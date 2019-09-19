@@ -15,6 +15,7 @@ namespace SharpMock.Http
             {
                 context.Response.Headers.Add(name, value);
             }
+            message.Body = message.Body ?? string.Empty;
             return context.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(message.Body), 0, message.Body.Length);
         }
     }

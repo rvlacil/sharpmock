@@ -9,5 +9,10 @@ namespace SharpMock.Http
     {
         public IHeaderDictionary Headers { get; set; }
         public string Body {get; set;}
+
+        public HttpMessage()
+        {
+            Headers = new HeaderDictionary();
+        }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Server.Features;
 using System.IO;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SharpMock.Http
@@ -12,7 +15,7 @@ namespace SharpMock.Http
         {
             _processor = processor;
             _host = new WebHostBuilder()
-                .UseKestrel()
+                .UseKestrel(o => o.Listen(IPAddress.Loopback, 55555))
                 .Configure(app =>
                 {
                     app.Use((next) => async (context) =>
@@ -34,5 +37,7 @@ namespace SharpMock.Http
         {
             return _host.StopAsync();
         }
+
+        public string Address => _host.ServerFeatures.Get<IServerAddressesFeature>().Addresses.First();
     }
 }

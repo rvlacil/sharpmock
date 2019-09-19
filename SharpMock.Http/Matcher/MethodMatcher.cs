@@ -17,8 +17,8 @@ namespace SharpMock.Http.Matcher
         {
             if (arg.Method == _method) return true;
 
-            listener.Append("Expected HttpMethod: ").AppendLine(_method);
-            listener.Append("Actual HttpMethod: ").AppendLine(arg.Method);
+            listener.Append("Expected Method: ").AppendLine(_method);
+            listener.Append("Actual Method: ").AppendLine(arg.Method);
 
             return false;
         }
