@@ -27,7 +27,7 @@ namespace SharpMock.Http.Test.Matcher
             var rqst = new HttpRequestMessageBuilder().Build();
             var listener = MockFactory.Create<IMatchResultListener>();
 
-            listener.Add().Setup(listener.O.Append, M.Any("")).ReturnRepeatedly(new StringBuilder());
+            listener.Add().Setup(listener.O.Append, M.Any("")).Return(new StringBuilder());
 
             Assert.IsFalse(sut.Match(rqst, listener.O));
         }
@@ -42,6 +42,8 @@ namespace SharpMock.Http.Test.Matcher
             listener.Add().Setup(listener.O.Append, M.Any("")).ReturnRepeatedly(new StringBuilder());
 
             Assert.IsFalse(sut.Match(rqst, listener.O));
+
+            listener.Verify();
         }
     }
 }

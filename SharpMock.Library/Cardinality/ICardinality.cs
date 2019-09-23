@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace SharpMock.Library.Cardinality
+﻿namespace SharpMock.Library.Cardinality
 {
     public interface ICardinality
     {

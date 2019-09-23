@@ -9,7 +9,7 @@ namespace SharpMock.Library
         public static void Verify<T>(this IMock<T> mock)
         {
             var output = new MatchResultListener();
-            output.AppendLine("Not satisfied cardinality of setups:");
+            output.AppendLine("Setup cardinality not satisfied:");
 
             var ret = true;
             foreach (var engine in mock.Engines.Values)

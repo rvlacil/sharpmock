@@ -29,10 +29,14 @@ namespace SharpMock.Library.Engine
 
         protected ISetup FindMatcher(Func<IMatcher, IMatchResultListener, bool> match)
         {
-            if (_activeSetups.Count == 0) throw new ArgumentException("nothing set up");
-
             var listener = new MatchResultListener();
             listener.Append("Trying to find a match for: ").AppendLine(_methodName);
+
+            if (_activeSetups.Count == 0)
+            {
+                listener.NewScope().AppendLine("Nothing setup up");
+                throw new ArgumentException(listener.Message());
+            }
 
             var setup = FindAccrodingToArgs(listener, match);
             MarkCardinality(setup, listener);
@@ -42,29 +46,24 @@ namespace SharpMock.Library.Engine
 
         private ISetup FindAccrodingToArgs(IMatchResultListener listener, Func<IMatcher, IMatchResultListener, bool> match)
         {
-            int i = _activeSetups.Count - 1;
-
             using (var scope = listener.NewScope())
             {
-                while (i >= 0)
+                for (var i = _activeSetups.Count - 1; i >= 0; --i)
                 {
                     if (TryMatcher(_activeSetups[i].Matcher, listener, match))
                     {
                         scope.DropScope();
-                        break;
+                        return _activeSetups[i];
                     }
-
-                    --i;
                 }
-            }
 
-            if (i < 0) throw new ArgumentException(listener.Message());
-            return _activeSetups[i];
+                throw new ArgumentException(listener.Message());
+            }
         }
 
         private bool TryMatcher(IMatcher matcher, IMatchResultListener listener, Func<IMatcher, IMatchResultListener, bool> match)
         {
-            listener.Append("Setup with matcher:").AppendLine(matcher.ToPrint());
+            listener.Append("Setup: ").Append(_methodName).AppendLine(matcher.ToPrint());
             using (var scope = listener.NewScope())
             {
                 return match(matcher, listener);
@@ -75,7 +74,7 @@ namespace SharpMock.Library.Engine
         {
             using (var scope = listener.NewScope())
             {
-                scope.Append($"Found Setup with matchers: ").Append(setup.Matcher.ToPrint()).AppendLine(": Failed on cardinality: ");
+                scope.Append($"Setup: ").Append(_methodName).Append(setup.Matcher.ToPrint()).AppendLine(": Failed on cardinality: ");
 
                 using (var inner = listener.NewScope())
                 {
@@ -97,17 +96,28 @@ namespace SharpMock.Library.Engine
                 var satisfied = true;
                 foreach (var s in _activeSetups)
                 {
-                    using (var inner = output.NewScope())
-                    {
-                        inner.Append("with matchers: ").Append(s.Matcher.ToPrint()).AppendLine(": ");
-                        var localSatisfied = s.IsSatisfied(output);
-                        if (localSatisfied) inner.DropScope();
-                        satisfied = localSatisfied && satisfied;
-                    }
+                    satisfied = VerifySingleSetup(s, output) && satisfied;
                 }
 
                 if (satisfied) scope.DropScope();
                 return satisfied;
+            }
+        }
+
+        private bool VerifySingleSetup(ISetup setup, IMatchResultListener output)
+        {
+            using (var outer = output.NewScope())
+            {
+                output.Append(_methodName).Append(setup.Matcher.ToPrint()).AppendLine(":");
+                using (var inner = output.NewScope())
+                {
+                    if (setup.IsSatisfied(output))
+                    {
+                        outer.DropScope();
+                        return true;
+                    }
+                    return false;
+                }
             }
         }
     }
