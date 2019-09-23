@@ -9,6 +9,6 @@ namespace SharpMock.Library
     {
         Dictionary<MethodInfo, IEngine> Engines { get; }
 
-        T I { get; }
+        T O { get; }
     }
 }

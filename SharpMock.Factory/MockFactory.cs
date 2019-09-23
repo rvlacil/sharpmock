@@ -93,7 +93,7 @@ namespace SharpMock.Library.GeneratedMocks
     {{
         public Dictionary<MethodInfo, IEngine> Engines {{ get; }}
 
-        public {mockedTypeName} I {{ get; }}
+        public {mockedTypeName} O {{ get; }}
         
         private class MockedInterface : {mockedTypeName}
         {{
@@ -110,7 +110,7 @@ namespace SharpMock.Library.GeneratedMocks
         public {mockTypeName}()
         {{
             Engines = new Dictionary<MethodInfo, IEngine>();
-            I = new MockedInterface(this);
+            O = new MockedInterface(this);
 
             MethodInfo methodInfo;
 
@@ -136,7 +136,7 @@ namespace SharpMock.Library.GeneratedMocks
             var delegateTypeStr = (isFunction ? "Func" : "Action") + argsStr;
             var engineTypeStr = (isFunction ? "FuncEngine" : "ActionEngine") + argsStr;
 
-            return $"methodInfo = new {delegateTypeStr}(I.{info.Name}).Method;" + Environment.NewLine +
+            return $"methodInfo = new {delegateTypeStr}(O.{info.Name}).Method;" + Environment.NewLine +
                    $"Engines[methodInfo] = new {engineTypeStr}(methodInfo.Name);";
         }
 

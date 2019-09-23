@@ -11,7 +11,7 @@ namespace SharpMock.Http
     {
         public Dictionary<MethodInfo, IEngine> Engines { get; }
 
-        public IHttpProcessor I { get; }
+        public IHttpProcessor O { get; }
 
         internal class HttpProcessor : IHttpProcessor
         {
@@ -32,9 +32,9 @@ namespace SharpMock.Http
         public HttpProcessorMock()
         {
             Engines = new Dictionary<MethodInfo, IEngine>();
-            I = new HttpProcessor(this);
+            O = new HttpProcessor(this);
 
-            var info = (new Func<HttpRequestMessage, Task<HttpResponseMessage>>(I.Reply)).Method;
+            var info = new Func<HttpRequestMessage, Task<HttpResponseMessage>>(O.Reply).Method;
             Engines[info] = new FuncEngine<HttpRequestMessage, Task<HttpResponseMessage>>(info.Name);
         }
     }

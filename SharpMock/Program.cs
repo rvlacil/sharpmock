@@ -14,7 +14,7 @@ namespace SharpMock
             try
             {
                 var mock = MockFactory.Create<ITest>();
-                var i = mock.I;
+                var i = mock.O;
 
                 mock.Add().Setup(i.Do, M.Any(0)).
                     DoRepeatedly(o => Console.WriteLine($"args: {o}"));
