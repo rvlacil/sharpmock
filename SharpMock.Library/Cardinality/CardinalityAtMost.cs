@@ -22,7 +22,10 @@ namespace SharpMock.Library.Cardinality
         {
             if (_actual > _requested)
             {
-                output.Append("requested AtMost: ").Append(_requested).Append(" actual: ").Append(_actual).AppendLine();
+                output.AppendLine("AtMost Cardinality:");
+                output.NewScope();
+                output.AppendLine($"Set up: {_requested}");
+                output.AppendLine($"Actual: {_actual}");
                 return false;
             }
             return true;
