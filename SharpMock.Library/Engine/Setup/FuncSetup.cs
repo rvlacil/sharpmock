@@ -6,12 +6,6 @@ namespace SharpMock.Library.Engine.Setup
 {
     public abstract class FuncSetupBase<Self, Ret> : SetupBase<Self> where Self : ISetup
     {
-        public Ret Act(Func<IReturn<Ret>, Ret> action)
-        {
-            var ret = action((IReturn<Ret>)ActionContainer.Top());
-            ActionContainer.Pop();
-            return ret;
-        }
     }
 
     public class FuncSetup<Ret> : FuncSetupBase<IFuncSetup<Ret>, Ret>, IFuncSetup<Ret>

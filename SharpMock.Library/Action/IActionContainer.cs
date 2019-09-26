@@ -8,7 +8,6 @@ namespace SharpMock.Library.Action
     public interface IActionContainer : ICardinality
     {
         void Add(IAction action, bool repeated);
-        IAction Top();
-        void Pop();
+        IAction Pop();
     }
 }

@@ -6,11 +6,6 @@ namespace SharpMock.Library.Engine.Setup
 {
     public class ActionSetupBase<Self> : SetupBase<Self> where Self : ISetup
     {
-        public void Act(Action<IAction> action)
-        {
-            action(ActionContainer.Top());
-            ActionContainer.Pop();
-        }
     }
 
     public class ActionSetup : ActionSetupBase<IActionSetup>, IActionSetup

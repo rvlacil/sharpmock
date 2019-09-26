@@ -17,13 +17,11 @@ namespace SharpMock
                 var i = mock.O;
 
                 mock.Add().Setup(i.Do, M.Any(0)).
-                    DoRepeatedly(o => Console.WriteLine($"args: {o}"));
+                    DoRepeatedly(o => Console.WriteLine($"new args: {o}"));
+                mock.Add().Setup(i.Do, M.Any(0)).
+                    Do(o => Console.WriteLine($"args: {o}")).RetireOnSaturation();
 
-                mock.Add().Setup(i.Do, M.Eq(4)).Times(C.AtLeast(1)).
-                    DoRepeatedly(o => Console.WriteLine($"args special: {o}"));
-
-                mock.Add().Setup(i.Do, M.Eq(8)).Do(() => { });
-                mock.Add().Setup(i.Do, M.Eq(9)).Do(() => { });
+                mock.Add().Setup(i.Do, M.Eq(4)).Times(C.Times(0));
 
                 i.Do(4);
                 i.Do(5);

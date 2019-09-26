@@ -6,8 +6,7 @@ namespace SharpMock.Library.Engine.Setup
         ISetup,
         ISetupMatch<IFuncSetup<Ret>>,
         ISetupCardinality<IFuncSetup<Ret>>,
-        ISetupDo<IFuncSetup<Ret>, Func<Ret>>,
-        IFuncSetupAct<Ret>
+        ISetupDo<IFuncSetup<Ret>, Func<Ret>>
     {
     }
 
@@ -15,8 +14,7 @@ namespace SharpMock.Library.Engine.Setup
         ISetup,
         ISetupMatch<IFuncSetup<T1, Ret>, T1>,
         ISetupCardinality<IFuncSetup<T1, Ret>>,
-        ISetupDo<IFuncSetup<T1, Ret>, Func<T1, Ret>>,
-        IFuncSetupAct<Ret>
+        ISetupDo<IFuncSetup<T1, Ret>, Func<T1, Ret>>
     {
     }
 
@@ -24,8 +22,7 @@ namespace SharpMock.Library.Engine.Setup
         ISetup,
         ISetupMatch<IFuncSetup<T1, T2, Ret>, T1, T2>,
         ISetupCardinality<IFuncSetup<T1, T2, Ret>>,
-        ISetupDo<IFuncSetup<T1, T2, Ret>, Func<T1, T2, Ret>>,
-        IFuncSetupAct<Ret>
+        ISetupDo<IFuncSetup<T1, T2, Ret>, Func<T1, T2, Ret>>
     {
     }
 }

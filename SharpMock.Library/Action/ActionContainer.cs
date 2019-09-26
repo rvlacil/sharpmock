@@ -29,7 +29,10 @@ namespace SharpMock.Library.Action
             if (_actions.Count == 0) return true;
             if (_actions[0].IsRepeated == false)
             {
-                output.AppendLine($"Action Implicit Cardinality: Requested actions: {_actions.Count + _used.Count}, to process {_actions.Count}");
+                output.AppendLine("Action Implicit Cardinality:");
+                output.NewScope();
+                output.AppendLine($"Set up: {_actions.Count + _used.Count}");
+                output.AppendLine($"Remaining: {_actions.Count}");
                 return false;
             }
             return true;
@@ -39,21 +42,27 @@ namespace SharpMock.Library.Action
         {
             if (_actions.Count == 0)
             {
-                output.AppendLine($"Action Implicit Cardinality: Requested actions: {_used.Count}, but all have been already processed");
+                output.AppendLine("Action Implicit Cardinality:");
+                output.NewScope();
+                output.AppendLine($"Set up: {_actions.Count + _used.Count}");
+                output.AppendLine($"Remaining: all processed");
                 return false;
             }
             return true;
         }
 
-        public void Pop()
+        public IAction Pop()
         {
-            if (_actions.Count == 0) return;
-            if (_actions[0].IsRepeated) return;
+            var result = Top();
+
+            if (_actions[0].IsRepeated) return result;
             _used.Add(_actions[0].Action);
             _actions.RemoveAt(0);
+
+            return result;
         }
 
-        public IAction Top()
+        private IAction Top()
         {
             if (_actions.Count == 0) throw new ArgumentException("No actions set up");
             return _actions[0].Action;

@@ -1,4 +1,5 @@
-﻿using SharpMock.Library.Engine.Setup;
+﻿using SharpMock.Library.Action;
+using SharpMock.Library.Engine.Setup;
 using SharpMock.Library.Matchers;
 using System;
 using System.Collections.Generic;
@@ -19,15 +20,7 @@ namespace SharpMock.Library.Engine
             _depletedSetups = new List<ISetup>();
         }
 
-        protected void RetireIf(ISetup setup)
-        {
-            if (!setup.IsSaturated()) return;
-
-            _depletedSetups.Add(setup);
-            _activeSetups.Remove(setup);
-        }
-
-        protected ISetup FindMatcher(Func<IMatcher, IMatchResultListener, bool> match)
+        protected IAction FindAction(Func<IMatcher, IMatchResultListener, bool> match)
         {
             var listener = new MatchResultListener();
             listener.Append("Trying to find a match for: ").AppendLine(_methodName);
@@ -39,9 +32,18 @@ namespace SharpMock.Library.Engine
             }
 
             var setup = FindAccrodingToArgs(listener, match);
-            MarkCardinality(setup, listener);
+            var result = GetAction(setup, listener);
+            RetireIf(setup);
 
-            return setup;
+            return result;
+        }
+
+        private void RetireIf(ISetup setup)
+        {
+            if (!setup.IsSaturated()) return;
+
+            _depletedSetups.Add(setup);
+            _activeSetups.Remove(setup);
         }
 
         private ISetup FindAccrodingToArgs(IMatchResultListener listener, Func<IMatcher, IMatchResultListener, bool> match)
@@ -70,7 +72,7 @@ namespace SharpMock.Library.Engine
             }
         }
 
-        private void MarkCardinality(ISetup setup, IMatchResultListener listener)
+        private IAction GetAction(ISetup setup, IMatchResultListener listener)
         {
             using (var scope = listener.NewScope())
             {
@@ -86,6 +88,8 @@ namespace SharpMock.Library.Engine
 
                 scope.DropScope();
             }
+
+            return setup.ActionContainer.Pop();
         }
 
         public bool Verify(IMatchResultListener output)
