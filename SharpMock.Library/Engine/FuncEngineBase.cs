@@ -11,7 +11,7 @@ namespace SharpMock.Library.Engine
         public Ret Execute(Func<IMatcher, IMatchResultListener, bool> match, Func<IReturn<Ret>, Ret> response)
         {
             var action = FindAction(match);
-            if (action == null) return default;
+            if (action == null) return default(Ret);
             return response((IReturn<Ret>)action);
         }
     }

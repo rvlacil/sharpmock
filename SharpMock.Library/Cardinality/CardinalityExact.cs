@@ -41,7 +41,10 @@ namespace SharpMock.Library.Cardinality
 
         private void PrintError(IMatchResultListener output)
         {
-            output.Append("requested Exact: ").Append(_requested).Append(" actual: ").Append(_actual).AppendLine();
+            output.AppendLine("Exact Cardinality:");
+            output.NewScope();
+            output.AppendLine($"Set up: {_requested}");
+            output.AppendLine($"Actual: {_actual}");
         }
     }
 }

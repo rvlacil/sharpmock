@@ -32,7 +32,7 @@ namespace SharpMock.Library.Action
                 output.AppendLine("Action Implicit Cardinality:");
                 output.NewScope();
                 output.AppendLine($"Set up: {_actions.Count + _used.Count}");
-                output.AppendLine($"Remaining: {_actions.Count}");
+                output.AppendLine($"Actual: {_used.Count}");
                 return false;
             }
             return true;
@@ -44,8 +44,8 @@ namespace SharpMock.Library.Action
             {
                 output.AppendLine("Action Implicit Cardinality:");
                 output.NewScope();
-                output.AppendLine($"Set up: {_actions.Count + _used.Count}");
-                output.AppendLine($"Remaining: all processed");
+                output.AppendLine($"Set up: {_used.Count}");
+                output.AppendLine($"Actual: {_used.Count + 1}");
                 return false;
             }
             return true;
