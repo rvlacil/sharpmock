@@ -3,20 +3,12 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build:
+  ci:
     runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v1
     - name: Build
-      run: dotnet build
-
-  test:
-    runs-on: windows-latest
-    needs: build
-    
-    steps:
-    - name: Run Tests
       run: |
-        dir
+        dotnet build
         dotnet test --collect:"Code Coverage"
