@@ -17,4 +17,6 @@ jobs:
     
     steps:
     - name: Run Tests
-      run: dotnet test --collect:"Code Coverage"
+      run: |
+        dir
+        dotnet test --collect:"Code Coverage"
