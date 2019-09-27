@@ -3,19 +3,20 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build:
-
+  ci:
     runs-on: windows-latest
-    
+
     steps:
     - uses: actions/checkout@v1
     - name: Build
       run: dotnet build
- 
- test:
-    runs-on: windows-latest
-    needs: build
-    
-    steps:
-    - name: Run Tests
-      run: dotnet test --collect:"Code Coverage"
+
+    - name: Test
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov
+
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.github_token }}
+        path-to-lcov: SharpMock.Http.Test\coverage.info
+
