@@ -9,5 +9,13 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Run UnitTests
+    - name: Build
       run: dotnet build
+ 
+ test:
+    runs-on: windows-latest
+    needs: build
+    
+    steps:
+    - name: Run Tests
+      run: dotnet test --collect:"Code Coverage"
