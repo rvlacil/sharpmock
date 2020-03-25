@@ -14,5 +14,14 @@ namespace SharpMock.Http
         {
             Headers = new HeaderDictionary();
         }
+
+        protected void SerializeTo(StringBuilder builder)
+        {
+            foreach (var pair in Headers)
+            {
+                builder.Append(pair.Key).Append(": ").AppendLine(pair.Value);
+            }
+            builder.Append(Body);
+        }
     }
 }

@@ -4,6 +4,8 @@ using SharpMock.Library.Engine.Setup;
 using SharpMock.Library.Matchers;
 using SharpMock.Factory;
 using System;
+using SharpMock.Http;
+using System.Threading.Tasks;
 
 namespace SharpMock
 {
@@ -13,6 +15,7 @@ namespace SharpMock
         {
             try
             {
+                /*
                 var mock = MockFactory.Create<ITest>();
                 var i = mock.O;
 
@@ -29,6 +32,25 @@ namespace SharpMock
                 i.Do(6);
 
                 mock.Verify();
+                */
+
+                var mock = new HttpProcessorMock();
+                var i = mock.O;
+                var server = new HttpServer(i);
+                server.StartAsync().Wait();
+
+
+                mock.Setup(M.Any<HttpRequestMessage>()).DoRepeatedly(async (rqst) => {
+                    Console.WriteLine(rqst.ToString());
+                    await Task.Delay(20000);
+                    return new HttpResponseMessage() { Status = 500 };
+                });
+
+
+                Console.WriteLine($"Started Server, listing on: {server.Address}");
+
+
+                Task.Delay(1000000000).Wait();
             }
             catch (Exception e)
             {

@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SharpMock.Factory\SharpMock.Factory.csproj" />
+    <ProjectReference Include="..\SharpMock.Http\SharpMock.Http.csproj" />
     <ProjectReference Include="..\SharpMock.Library\SharpMock.Library.csproj" />
   </ItemGroup>
 
