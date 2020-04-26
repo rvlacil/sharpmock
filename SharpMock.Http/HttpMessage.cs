@@ -21,6 +21,7 @@ namespace SharpMock.Http
             {
                 builder.Append(pair.Key).Append(": ").AppendLine(pair.Value);
             }
+            builder.AppendLine();
             builder.Append(Body);
         }
     }

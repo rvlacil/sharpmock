@@ -14,7 +14,7 @@ namespace SharpMock.Http
         public override string ToString()
         {
             var builder = new StringBuilder();
-            builder.Append(Method).Append(" ").Append(Path);
+            builder.Append(Method).Append(" ").AppendLine(Path);
             SerializeTo(builder);
 
             return builder.ToString();
