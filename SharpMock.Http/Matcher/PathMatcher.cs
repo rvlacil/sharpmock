@@ -8,7 +8,7 @@ namespace SharpMock.Http.Matcher
         private readonly string _path;
 
         public PathMatcher(string path)
-            : base($"HttpPath({path})")
+            : base($"Path({path})")
         {
             _path = path;
         }

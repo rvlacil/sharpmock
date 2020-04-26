@@ -8,7 +8,7 @@ namespace SharpMock.Library.Matchers
         private readonly List<ITypedMatcher<T>> _matchers;
 
         public MatcherComposite(List<ITypedMatcher<T>> matchers)
-            : base(string.Join(", ", matchers.Select(i => i.ToString())))
+            : base(string.Join(", ", matchers.Select(i => i.ToPrint())))
         {
             _matchers = matchers;
         }

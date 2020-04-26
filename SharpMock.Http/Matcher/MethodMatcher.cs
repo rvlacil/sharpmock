@@ -8,7 +8,7 @@ namespace SharpMock.Http.Matcher
         private readonly string _method;
 
         public MethodMatcher(string method)
-            : base($"HttpMethod({method})")
+            : base($"Method({method})")
         {
             _method = method;
         }

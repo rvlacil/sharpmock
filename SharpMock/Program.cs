@@ -5,6 +5,7 @@ using SharpMock.Library.Matchers;
 using SharpMock.Factory;
 using System;
 using SharpMock.Http;
+using SharpMock.Http.Matcher;
 using System.Threading.Tasks;
 
 namespace SharpMock
@@ -35,22 +36,24 @@ namespace SharpMock
                 */
 
                 var mock = new HttpProcessorMock();
-                var i = mock.O;
-                var server = new HttpServer(i);
-                server.StartAsync().Wait();
+                var http = new HttpServer(mock.O);
+                http.StartAsync();
 
+                var rqst1 = new HttpRequestMatcherBuilder().Method("GET").Path("/test").Build();
+                var rqst2 = new HttpRequestMatcherBuilder().Method("POST").Path("/prd").Build();
+                var rspn1 = new HttpResponseMessageBuilder().Status(200).Body("test").Build();
+                var rspn2 = new HttpResponseMessageBuilder().Status(200).Body("prd").Build();
 
-                mock.Setup(M.Any<HttpRequestMessage>()).DoRepeatedly(async (rqst) => {
-                    Console.WriteLine(rqst.ToString());
-                    await Task.Delay(20000);
-                    return new HttpResponseMessage() { Status = 500 };
-                });
+                mock.Setup(rqst1)
+                    .ReturnAsync(rspn1)
+                    .ReturnAsync(rspn1)
+                    .ReturnAsync(rspn1)
+                    .ReturnAsyncRepeatedly(rspn2);
+                mock.Setup(rqst2).ReturnAsyncRepeatedly(rspn2);
 
+                Console.WriteLine($"Listening on: {http.Address}");
 
-                Console.WriteLine($"Started Server, listing on: {server.Address}");
-
-
-                Task.Delay(1000000000).Wait();
+                Task.Delay(10000000).Wait();
             }
             catch (Exception e)
             {

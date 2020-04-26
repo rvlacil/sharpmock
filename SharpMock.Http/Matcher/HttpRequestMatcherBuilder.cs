@@ -32,7 +32,7 @@ namespace SharpMock.Http.Matcher
             return this;
         }
 
-        public ITypedMatcher<HttpRequestMessage> Build()
+        public TypedMatcher<HttpRequestMessage> Build()
         {
             return new MatcherComposite<HttpRequestMessage>(_matchers);
         }
