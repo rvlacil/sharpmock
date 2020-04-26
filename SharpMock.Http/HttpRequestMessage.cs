@@ -10,5 +10,14 @@ namespace SharpMock.Http
         public string Method { get; set; }
         public PathString Path { get; set; }
         public HttpContext HttpContext { get; set; }
+
+        public override string ToString()
+        {
+            var builder = new StringBuilder();
+            builder.Append(Method).Append(" ").AppendLine(Path);
+            SerializeTo(builder);
+
+            return builder.ToString();
+        }
     }
 }
