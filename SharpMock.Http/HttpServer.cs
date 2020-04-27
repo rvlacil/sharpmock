@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Server.Features;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.IO;
+﻿using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.AspNetCore.Http;
 
 namespace SharpMock.Http
 {
@@ -13,11 +12,11 @@ namespace SharpMock.Http
     {
         private readonly IWebHost _host;
         private readonly IHttpProcessor _processor;
-        public HttpServer(IHttpProcessor processor)
+        public HttpServer(IHttpProcessor processor, IPAddress address, int port)
         {
             _processor = processor;
             _host = new WebHostBuilder()
-                .UseKestrel(o => o.Listen(IPAddress.Loopback, 55555))
+                .UseKestrel(o => o.Listen(address, port))
                 .Configure(app =>
                 {
                     app.Use((next) => ProcessMessage);

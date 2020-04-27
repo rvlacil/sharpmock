@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace SharpMock.Http
 {
@@ -17,12 +15,20 @@ namespace SharpMock.Http
 
         protected void SerializeTo(StringBuilder builder)
         {
-            foreach (var pair in Headers)
+            if (Headers.Count > 0)
             {
-                builder.Append(pair.Key).Append(": ").AppendLine(pair.Value);
+                foreach (var pair in Headers)
+                {
+                    builder.AppendLine();
+                    builder.Append(pair.Key).Append(": ").Append(pair.Value);
+                }
             }
-            builder.AppendLine();
-            builder.Append(Body);
+            if (Body.Length > 0)
+            {
+                builder.AppendLine();
+                builder.AppendLine();
+                builder.Append(Body);
+            }
         }
     }
 }

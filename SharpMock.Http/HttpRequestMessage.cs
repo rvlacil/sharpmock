@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace SharpMock.Http
 {
@@ -14,7 +12,7 @@ namespace SharpMock.Http
         public override string ToString()
         {
             var builder = new StringBuilder();
-            builder.Append(Method).Append(" ").AppendLine(Path);
+            builder.Append(Method).Append(" ").Append(Path);
             SerializeTo(builder);
 
             return builder.ToString();

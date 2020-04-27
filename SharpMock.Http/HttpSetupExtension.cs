@@ -1,15 +1,15 @@
-﻿using SharpMock.Library;
+﻿using System.Threading.Tasks;
+using SharpMock.Library;
 using SharpMock.Library.Engine.Setup;
 using SharpMock.Library.Matchers;
-using System.Threading.Tasks;
 
 namespace SharpMock.Http
 {
     public static class HttpSetupExtension
     {
-        public static IFuncSetup<HttpRequestMessage, Task<HttpResponseMessage>> Setup(this IMock<IHttpProcessor> mock, TypedMatcher<HttpRequestMessage> matcher)
+        public static IFuncSetup<HttpRequestMessage, Task<HttpResponseMessage>> Setup(this HttpMock mock, TypedMatcher<HttpRequestMessage> matcher)
         {
-            return mock.Add().Setup(mock.O.Reply, matcher);
+            return mock.ProcessorMock.Add().Setup(mock.ProcessorMock.O.Reply, matcher);
         }
     }
 }
